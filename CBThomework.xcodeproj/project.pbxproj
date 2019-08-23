@@ -16,6 +16,7 @@
 		69A62D4B230E39D800000543 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D4A230E39D800000543 /* Activity.swift */; };
 		69A62D4F230E63C800000543 /* JournalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D4E230E63C800000543 /* JournalTableViewCell.swift */; };
 		69A62D51230E6C0000000543 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D50230E6C0000000543 /* Journal.swift */; };
+		BDFB4139230F88830017AA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFB4138230F88830017AA14 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		69A62D4A230E39D800000543 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		69A62D4E230E63C800000543 /* JournalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalTableViewCell.swift; sourceTree = "<group>"; };
 		69A62D50230E6C0000000543 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		BDFB4138230F88830017AA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				69A62D35230E300E00000543 /* ViewController.swift */,
 				69A62D48230E381E00000543 /* FirstTableViewCell.swift */,
 				69A62D4E230E63C800000543 /* JournalTableViewCell.swift */,
+				BDFB4138230F88830017AA14 /* HomeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				69A62D4F230E63C800000543 /* JournalTableViewCell.swift in Sources */,
 				69A62D4B230E39D800000543 /* Activity.swift in Sources */,
 				69A62D34230E300E00000543 /* AppDelegate.swift in Sources */,
+				BDFB4139230F88830017AA14 /* HomeViewController.swift in Sources */,
 				69A62D51230E6C0000000543 /* Journal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,7 +335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DT89MQLH9B;
+				DEVELOPMENT_TEAM = VZX6G92869;
 				INFOPLIST_FILE = CBThomework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -349,7 +353,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DT89MQLH9B;
+				DEVELOPMENT_TEAM = VZX6G92869;
 				INFOPLIST_FILE = CBThomework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
