@@ -8,14 +8,12 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class Journal{
+class Journal : Object{
     
-    var title : String
-    
-    init(title: String) {
-        self.title = title
-    }
-    
-    
+    @objc dynamic var title : String = ""
+    @objc dynamic var descriptionText: String = ""
+    @objc dynamic var date : String = ""
+
 }

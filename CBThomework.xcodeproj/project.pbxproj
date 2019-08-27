@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F696230F7CEB00021C2D /* SettingViewController.swift */; };
+		6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */; };
+		698E88C92310ED3600101B80 /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E88C82310ED3600101B80 /* EditActivityViewController.swift */; };
+		6994C8E8231116EE00A2A3D0 /* UlangiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */; };
+		6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */; };
 		69A62D34230E300E00000543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D33230E300E00000543 /* AppDelegate.swift */; };
 		69A62D36230E300E00000543 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D35230E300E00000543 /* ViewController.swift */; };
 		69A62D39230E300E00000543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A62D37230E300E00000543 /* Main.storyboard */; };
@@ -16,9 +21,28 @@
 		69A62D4B230E39D800000543 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D4A230E39D800000543 /* Activity.swift */; };
 		69A62D4F230E63C800000543 /* JournalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D4E230E63C800000543 /* JournalTableViewCell.swift */; };
 		69A62D51230E6C0000000543 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D50230E6C0000000543 /* Journal.swift */; };
+		69AEEFE123112B9A002A51DD /* UlangiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AEEFE023112B9A002A51DD /* UlangiTableViewCell.swift */; };
+		69AEEFE323112E30002A51DD /* PeringatanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AEEFE223112E30002A51DD /* PeringatanTableViewCell.swift */; };
+		69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDDE6231251B80025A30E /* NewJournalViewController.swift */; };
+		69BEDE07231269260025A30E /* NewActivity1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE06231269260025A30E /* NewActivity1TableViewCell.swift */; };
+		69BEDE0923126CAD0025A30E /* NewActivity2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE0823126CAD0025A30E /* NewActivity2TableViewCell.swift */; };
+		69BEDE0D23128FA60025A30E /* SeeAllActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE0C23128FA60025A30E /* SeeAllActivityViewController.swift */; };
+		69BEDE0F231374AF0025A30E /* FirstActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE0E231374AF0025A30E /* FirstActivityViewController.swift */; };
+		69BEDE11231375700025A30E /* FirstActivityJudulTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE10231375700025A30E /* FirstActivityJudulTableViewCell.swift */; };
+		69BEDE13231398420025A30E /* FullActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE12231398420025A30E /* FullActivityTableViewCell.swift */; };
+		69BEDE15231408AF0025A30E /* FullRefleksiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE14231408AF0025A30E /* FullRefleksiTableViewCell.swift */; };
+		69BEDE172314092C0025A30E /* SeeAllJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE162314092C0025A30E /* SeeAllJournalViewController.swift */; };
+		D616FA2DCAFC95EFECAAE93E /* Pods_CBThomework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F60B9D8AE718BE1471DC923 /* Pods_CBThomework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F60B9D8AE718BE1471DC923 /* Pods_CBThomework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CBThomework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		559BC93F310F31FCCADEB499 /* Pods-CBThomework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CBThomework.debug.xcconfig"; path = "Target Support Files/Pods-CBThomework/Pods-CBThomework.debug.xcconfig"; sourceTree = "<group>"; };
+		6903F696230F7CEB00021C2D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		698E88C82310ED3600101B80 /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
+		6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlangiViewController.swift; sourceTree = "<group>"; };
+		6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeringatanViewController.swift; sourceTree = "<group>"; };
 		69A62D30230E300E00000543 /* CBThomework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBThomework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A62D33230E300E00000543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A62D35230E300E00000543 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +54,18 @@
 		69A62D4A230E39D800000543 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		69A62D4E230E63C800000543 /* JournalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalTableViewCell.swift; sourceTree = "<group>"; };
 		69A62D50230E6C0000000543 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		69AEEFE023112B9A002A51DD /* UlangiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlangiTableViewCell.swift; sourceTree = "<group>"; };
+		69AEEFE223112E30002A51DD /* PeringatanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeringatanTableViewCell.swift; sourceTree = "<group>"; };
+		69BEDDE6231251B80025A30E /* NewJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJournalViewController.swift; sourceTree = "<group>"; };
+		69BEDE06231269260025A30E /* NewActivity1TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivity1TableViewCell.swift; sourceTree = "<group>"; };
+		69BEDE0823126CAD0025A30E /* NewActivity2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivity2TableViewCell.swift; sourceTree = "<group>"; };
+		69BEDE0C23128FA60025A30E /* SeeAllActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllActivityViewController.swift; sourceTree = "<group>"; };
+		69BEDE0E231374AF0025A30E /* FirstActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstActivityViewController.swift; sourceTree = "<group>"; };
+		69BEDE10231375700025A30E /* FirstActivityJudulTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstActivityJudulTableViewCell.swift; sourceTree = "<group>"; };
+		69BEDE12231398420025A30E /* FullActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullActivityTableViewCell.swift; sourceTree = "<group>"; };
+		69BEDE14231408AF0025A30E /* FullRefleksiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRefleksiTableViewCell.swift; sourceTree = "<group>"; };
+		69BEDE162314092C0025A30E /* SeeAllJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllJournalViewController.swift; sourceTree = "<group>"; };
+		DC48042A698C0C1D0291F90A /* Pods-CBThomework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CBThomework.release.xcconfig"; path = "Target Support Files/Pods-CBThomework/Pods-CBThomework.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +73,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D616FA2DCAFC95EFECAAE93E /* Pods_CBThomework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E1B673E68D651F3017807DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F60B9D8AE718BE1471DC923 /* Pods_CBThomework.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		698E88CC2310F5C700101B80 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				69A62D48230E381E00000543 /* FirstTableViewCell.swift */,
+				69A62D4E230E63C800000543 /* JournalTableViewCell.swift */,
+				6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */,
+				69AEEFE023112B9A002A51DD /* UlangiTableViewCell.swift */,
+				69AEEFE223112E30002A51DD /* PeringatanTableViewCell.swift */,
+				69BEDE06231269260025A30E /* NewActivity1TableViewCell.swift */,
+				69BEDE0823126CAD0025A30E /* NewActivity2TableViewCell.swift */,
+				69BEDE10231375700025A30E /* FirstActivityJudulTableViewCell.swift */,
+				69BEDE12231398420025A30E /* FullActivityTableViewCell.swift */,
+				69BEDE14231408AF0025A30E /* FullRefleksiTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		69A62D27230E300E00000543 = {
 			isa = PBXGroup;
 			children = (
 				69A62D32230E300E00000543 /* CBThomework */,
 				69A62D31230E300E00000543 /* Products */,
+				9B4FA4F8C594A2BC1DCF679D /* Pods */,
+				2E1B673E68D651F3017807DF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,9 +158,16 @@
 		69A62D47230E306900000543 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				698E88CC2310F5C700101B80 /* Cell */,
 				69A62D35230E300E00000543 /* ViewController.swift */,
-				69A62D48230E381E00000543 /* FirstTableViewCell.swift */,
-				69A62D4E230E63C800000543 /* JournalTableViewCell.swift */,
+				6903F696230F7CEB00021C2D /* SettingViewController.swift */,
+				698E88C82310ED3600101B80 /* EditActivityViewController.swift */,
+				6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */,
+				6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */,
+				69BEDDE6231251B80025A30E /* NewJournalViewController.swift */,
+				69BEDE0E231374AF0025A30E /* FirstActivityViewController.swift */,
+				69BEDE0C23128FA60025A30E /* SeeAllActivityViewController.swift */,
+				69BEDE162314092C0025A30E /* SeeAllJournalViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -108,6 +179,15 @@
 			path = Designable;
 			sourceTree = "<group>";
 		};
+		9B4FA4F8C594A2BC1DCF679D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				559BC93F310F31FCCADEB499 /* Pods-CBThomework.debug.xcconfig */,
+				DC48042A698C0C1D0291F90A /* Pods-CBThomework.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,9 +195,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69A62D42230E300F00000543 /* Build configuration list for PBXNativeTarget "CBThomework" */;
 			buildPhases = (
+				F9C5FC830017F0C526C89944 /* [CP] Check Pods Manifest.lock */,
 				69A62D2C230E300E00000543 /* Sources */,
 				69A62D2D230E300E00000543 /* Frameworks */,
 				69A62D2E230E300E00000543 /* Resources */,
+				0B2F32EDE4B190A73472284C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,16 +256,81 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B2F32EDE4B190A73472284C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CBThomework/Pods-CBThomework-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CBThomework/Pods-CBThomework-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9C5FC830017F0C526C89944 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CBThomework-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		69A62D2C230E300E00000543 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69BEDE07231269260025A30E /* NewActivity1TableViewCell.swift in Sources */,
 				69A62D49230E381E00000543 /* FirstTableViewCell.swift in Sources */,
+				6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */,
 				69A62D36230E300E00000543 /* ViewController.swift in Sources */,
+				69BEDE0F231374AF0025A30E /* FirstActivityViewController.swift in Sources */,
+				69BEDE11231375700025A30E /* FirstActivityJudulTableViewCell.swift in Sources */,
+				69BEDE15231408AF0025A30E /* FullRefleksiTableViewCell.swift in Sources */,
+				69AEEFE123112B9A002A51DD /* UlangiTableViewCell.swift in Sources */,
+				69AEEFE323112E30002A51DD /* PeringatanTableViewCell.swift in Sources */,
+				69BEDE0923126CAD0025A30E /* NewActivity2TableViewCell.swift in Sources */,
+				69BEDE13231398420025A30E /* FullActivityTableViewCell.swift in Sources */,
+				698E88C92310ED3600101B80 /* EditActivityViewController.swift in Sources */,
 				69A62D4F230E63C800000543 /* JournalTableViewCell.swift in Sources */,
+				6994C8E8231116EE00A2A3D0 /* UlangiViewController.swift in Sources */,
+				69BEDE0D23128FA60025A30E /* SeeAllActivityViewController.swift in Sources */,
 				69A62D4B230E39D800000543 /* Activity.swift in Sources */,
+				69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */,
 				69A62D34230E300E00000543 /* AppDelegate.swift in Sources */,
+				6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */,
+				6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */,
+				69BEDE172314092C0025A30E /* SeeAllJournalViewController.swift in Sources */,
 				69A62D51230E6C0000000543 /* Journal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +475,7 @@
 		};
 		69A62D43230E300F00000543 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 559BC93F310F31FCCADEB499 /* Pods-CBThomework.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -346,6 +494,7 @@
 		};
 		69A62D44230E300F00000543 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC48042A698C0C1D0291F90A /* Pods-CBThomework.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

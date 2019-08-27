@@ -12,9 +12,7 @@ class FirstTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
     
-    func setActivity(activity : Activity){
-        label.text = activity.title
-    }
+    @IBOutlet weak var timestampLabel: UILabel!
     
-
+    
 }

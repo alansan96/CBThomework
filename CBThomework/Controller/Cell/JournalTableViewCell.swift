@@ -12,10 +12,7 @@ class JournalTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var journalLabel: UILabel!
-    
-    func setJournal(journal : Journal){
-        journalLabel.text = journal.title
-    }
-    
+    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
 }
