@@ -13,7 +13,8 @@ class FullActivityTableViewCell: UITableViewCell {
     @IBOutlet weak var judulLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     
-
+    @IBOutlet weak var activityView: UIView!
+    
     
 
 }

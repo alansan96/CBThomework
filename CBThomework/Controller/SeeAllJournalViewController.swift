@@ -24,10 +24,11 @@ class SeeAllJournalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.bounces = false
         journals = fetchAllJournal()
         
-
+        tableView.separatorStyle = .none
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+        tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         // Do any additional setup after loading the view.
     }
     
@@ -62,13 +63,13 @@ extension SeeAllJournalViewController : UITableViewDelegate, UITableViewDataSour
         cell.judulRefleksiLabel.text = journals[indexPath.row].title
         cell.descriptionRefleksiLabel.text = journals[indexPath.row].descriptionText
         cell.timestampLabel.text = journals[indexPath.row].date
-
-        
+        cell.journalView.dropShadow()
+        cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 162
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

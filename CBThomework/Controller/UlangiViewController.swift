@@ -22,6 +22,12 @@ class UlangiViewController: UIViewController {
         //self.tableView.bounces = false
     }
     
+    override func didMove(toParent parent: UIViewController?) {
+        if !(parent?.isEqual(self.parent) ?? false) {
+            print("Parent view loaded")
+        }
+        super.didMove(toParent: parent)
+    }
 
     
 }
@@ -43,9 +49,9 @@ extension UlangiViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.937254902, blue: 0.9607843137, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         let footerChildView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height))
-        footerChildView.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.937254902, blue: 0.9607843137, alpha: 1)
+        footerChildView.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         view.addSubview(footerChildView)
         return view
     }
@@ -55,6 +61,7 @@ extension UlangiViewController : UITableViewDelegate, UITableViewDataSource {
         self.delegate?.setResultOfBusinessLogic(id: indexPath.row, valueSent: labels[indexPath.row])
 
         print(indexPath.row)
+        navigationController?.popViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -66,6 +73,16 @@ extension UlangiViewController : UITableViewDelegate, UITableViewDataSource {
         return 44
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+        
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 19
+    }
     
 }
 

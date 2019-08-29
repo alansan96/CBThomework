@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class NewJournalViewController: UIViewController {
+class NewJournalViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var journalTitle: UITextField!
     @IBOutlet weak var journalDescription: UITextView!
@@ -21,7 +21,30 @@ class NewJournalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view2 \(fullJournalDetail)")
+        journalDescription.delegate = self
+        self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+
         initiateData()
+    
+    }
+    
+    func textViewDidBeginEditing(_ journalDescription: UITextView) {
+        print("masuk edit")
+        if journalDescription.textColor == UIColor.lightGray {
+            journalDescription.text = nil
+            journalDescription.textColor = UIColor.black
+        }
+    }
+    
+    
+    
+    func textViewDidEndEditing(_ journalDescription: UITextView) {
+        print("selesai edit")
+
+        if journalDescription.text.isEmpty {
+            journalDescription.text = "Placeholder"
+            journalDescription.textColor = UIColor.lightGray
+        }
     }
     
     func initiateData(){
@@ -30,10 +53,13 @@ class NewJournalViewController: UIViewController {
             journalDescription.text = fullJournalDetail?.descriptionText
             tambahOutlet.title = "Edit"
             
+            
         }else {
             journalTitle.text = ""
             journalTitle.placeholder = "Judul Title"
-            journalDescription.text = ""
+            journalDescription.text = "Catatan"
+            journalDescription.textColor = UIColor.lightGray
+            
         }
         
         

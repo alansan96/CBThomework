@@ -34,7 +34,9 @@ class ViewController: UIViewController {
         activities = createActivities()
         journals = createJournal()
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+        tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+    
         
     }
     
@@ -115,8 +117,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let name = activities[indexPath.row].title
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell") as! FirstTableViewCell
             cell.label.text = name
+            cell.label.font = UIFont.boldSystemFont(ofSize: 18)
             cell.timestampLabel.text = activities[indexPath.row].date
             cell.selectionStyle = .none
+            cell.aktivitasView.dropShadow()
+            cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
             return cell
             
             
@@ -126,9 +131,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let timestamp = journals[indexPath.row].date
             let cell = tableView.dequeueReusableCell(withIdentifier: "JournalCell") as! JournalTableViewCell
             cell.selectionStyle = .none
+            cell.journalLabel.font = UIFont.boldSystemFont(ofSize: 18)
             cell.journalLabel.text = title
             cell.descriptionLabel.text = desc
             cell.timestampLabel.text = timestamp
+            cell.journalView.dropShadow()
+            cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+            
             return cell
         }
         
@@ -142,15 +151,15 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.8469870687, green: 0.8471065164, blue: 0.8469493985, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         
         let view2 = UIView()
-        view2.backgroundColor = #colorLiteral(red: 0.8469870687, green: 0.8471065164, blue: 0.8469493985, alpha: 1)
+        view2.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         
         
         let text1 = UILabel()
         text1.text = sectionTitle[0]
-        text1.font = text1.font.withSize(24)
+        text1.font = UIFont.boldSystemFont(ofSize: 25)
         text1.frame =  CGRect(x:20, y: 5, width: 100, height: 35)
         
         let seeAllLabel = UIButton()
@@ -165,8 +174,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         let text2 = UILabel()
         text2.text = sectionTitle[1]
-        text2.font = text2.font.withSize(24)
-        
+        text2.font = UIFont.boldSystemFont(ofSize: 25)
         text2.frame =  CGRect(x:20, y: 5, width: 100, height: 35)
         
         
@@ -194,11 +202,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
 
-        let button:UIButton = UIButton(frame: CGRect(x: 250, y: -5, width: 120, height: 40))
+        let button:UIButton = UIButton(frame: CGRect(x: 280, y: -5, width: 120, height: 40))
         button.setTitle("Lihat Semua", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.2039215686, green: 0.4705882353, blue: 0.9647058824, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2117647059, green: 0.7176470588, blue: 0.9333333333, alpha: 1), for: .normal)
 
         if section == 0 {
             button.addTarget(self, action:#selector(self.buttonClickedActivity), for: .touchUpInside)
@@ -237,6 +245,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 60
+        }
         return 40.0
     }
     
@@ -245,15 +256,15 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 50
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 125
+            return 100
         }
         
-        return 125
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -281,4 +292,23 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+}
+
+
+
+extension UIView {
+    
+    func dropShadow() {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.layer.shadowRadius = 5
+        self.layer.masksToBounds = false
+//        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+//        self.layer.shouldRasterize = true
+//        self.layer.rasterizationScale = UIScreen.main.scale
+        self.layer.cornerRadius = 10
+        
+    }
 }

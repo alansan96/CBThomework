@@ -23,6 +23,8 @@
 		69A62D51230E6C0000000543 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A62D50230E6C0000000543 /* Journal.swift */; };
 		69AEEFE123112B9A002A51DD /* UlangiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AEEFE023112B9A002A51DD /* UlangiTableViewCell.swift */; };
 		69AEEFE323112E30002A51DD /* PeringatanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AEEFE223112E30002A51DD /* PeringatanTableViewCell.swift */; };
+		69B47FDA231626A300F1D42F /* selesaiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B47FD9231626A300F1D42F /* selesaiButton.swift */; };
+		69B47FDC23162A6300F1D42F /* hapusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B47FDB23162A6300F1D42F /* hapusButton.swift */; };
 		69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDDE6231251B80025A30E /* NewJournalViewController.swift */; };
 		69BEDE07231269260025A30E /* NewActivity1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE06231269260025A30E /* NewActivity1TableViewCell.swift */; };
 		69BEDE0923126CAD0025A30E /* NewActivity2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEDE0823126CAD0025A30E /* NewActivity2TableViewCell.swift */; };
@@ -56,6 +58,8 @@
 		69A62D50230E6C0000000543 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		69AEEFE023112B9A002A51DD /* UlangiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlangiTableViewCell.swift; sourceTree = "<group>"; };
 		69AEEFE223112E30002A51DD /* PeringatanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeringatanTableViewCell.swift; sourceTree = "<group>"; };
+		69B47FD9231626A300F1D42F /* selesaiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selesaiButton.swift; sourceTree = "<group>"; };
+		69B47FDB23162A6300F1D42F /* hapusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hapusButton.swift; sourceTree = "<group>"; };
 		69BEDDE6231251B80025A30E /* NewJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJournalViewController.swift; sourceTree = "<group>"; };
 		69BEDE06231269260025A30E /* NewActivity1TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivity1TableViewCell.swift; sourceTree = "<group>"; };
 		69BEDE0823126CAD0025A30E /* NewActivity2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivity2TableViewCell.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		69A62D52230E6CE700000543 /* Designable */ = {
 			isa = PBXGroup;
 			children = (
+				69B47FD9231626A300F1D42F /* selesaiButton.swift */,
+				69B47FDB23162A6300F1D42F /* hapusButton.swift */,
 			);
 			path = Designable;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69BEDE07231269260025A30E /* NewActivity1TableViewCell.swift in Sources */,
+				69B47FDC23162A6300F1D42F /* hapusButton.swift in Sources */,
 				69A62D49230E381E00000543 /* FirstTableViewCell.swift in Sources */,
 				6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */,
 				69A62D36230E300E00000543 /* ViewController.swift in Sources */,
@@ -326,6 +333,7 @@
 				6994C8E8231116EE00A2A3D0 /* UlangiViewController.swift in Sources */,
 				69BEDE0D23128FA60025A30E /* SeeAllActivityViewController.swift in Sources */,
 				69A62D4B230E39D800000543 /* Activity.swift in Sources */,
+				69B47FDA231626A300F1D42F /* selesaiButton.swift in Sources */,
 				69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */,
 				69A62D34230E300E00000543 /* AppDelegate.swift in Sources */,
 				6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */,

@@ -18,13 +18,12 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var afterPickerView: UIPickerView!
     
     var randoms : [String] = ["Ulangi", "Peringatan", "Perasaan Sebelum Aktivitas", "Perasaan Sesudah Aktivitas"]
-    var details : [String] = ["Jangan Pernah", "Tidak Ada", "", ""]
-    var details2 : [Int] = [0,0,0,0]
     
-    var ulangiDataSource : [String] = ["Jangan Pernah", "Setiap Hari", "Setiap 2 Hari", "Setiap 3 Hari", "Setiap Minggu", ""]
+    var ulangiDataSource : [String] = ["Jangan Pernah", "Setiap Hari", "Setiap 2 Hari", "Setiap 3 Hari", "Setiap Minggu", "Setiap 2 Minggu"]
     var peringatanDataSource : [String] = ["Tidak ada", "Setiap Pagi", "Setiap Siang", "Setiap Malam", "Sepanjang Hari"]
     
     var fullDetailActivity : Activity?
+    var fullDetailUnmanaged :Activity?
     
     
     var dataSource = ["  ", "Sedih Sekali 😔", "Sedih 😟", "Biasa Saja 😐", "Senang 🙂", "Senang Sekali 😃"]
@@ -34,33 +33,39 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Hello world")
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         tableView.bounces = false
-        
-       
+        tableView.isScrollEnabled = false
+        fullDetailUnmanaged = Activity(value: fullDetailActivity)
+
     }
     
+    //UBAH DETAIL KLIKED
     @IBAction func tambahAction(_ sender: UIBarButtonItem) {
         let Titlecell = self.tableView.cellForRow(at: IndexPath(item: 0, section: 0)) as! NewActivity1TableViewCell // judul
         
         let CatatanCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: 5)) as! NewActivity2TableViewCell // judul
         
         
-        print(Titlecell.titleTextField.text)
-        print(details[0])
-        print(details[1])
-        print(CatatanCell.catatanTextView.text)
+        print(Titlecell.titleTextField.text as Any)
+        print(CatatanCell.catatanTextView.text as Any)
         
         let realm = try! Realm()
         
         try! realm.write({
             fullDetailActivity?.title = Titlecell.titleTextField.text!
-            fullDetailActivity?.note = CatatanCell.catatanTextView.text
+            let note = (CatatanCell.catatanTextView.text == "Catatan") ? "" : CatatanCell.catatanTextView.text
+            fullDetailActivity?.note = note ?? ""
+            fullDetailActivity?.ulangi = fullDetailUnmanaged?.ulangi ?? 0
+            fullDetailActivity?.peringatan = fullDetailUnmanaged?.peringatan ?? 0
+            fullDetailActivity?.perasaanSesudah = fullDetailUnmanaged?.perasaanSesudah ?? 0
+            fullDetailActivity?.perasaanBefore = fullDetailUnmanaged?.perasaanBefore ?? 0
+
         })
         
         
     }
-    
     
     
     
@@ -103,27 +108,14 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     
     //protocol
     func setPeringatan(id: Int, valueSent: String) {
-        details[1] = valueSent
-        details2[1] = id
-        
-        let realm = try! Realm()
-        try! realm.write({
-            fullDetailActivity?.peringatan = id
-        })
-        
+        fullDetailUnmanaged?.peringatan = id
         tableView.reloadData()
     }
     
     //protocol
     func setResultOfBusinessLogic(id: Int, valueSent: String) {
-        details[0] = valueSent
-        details2[1] = id
-        
-        let realm = try! Realm()
-        try! realm.write({
-            fullDetailActivity?.ulangi = id
-        })
-        
+
+        fullDetailUnmanaged?.ulangi = id
         tableView.reloadData()
     }
     
@@ -140,6 +132,32 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         }
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("masuk edit")
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("selesai edit")
+        
+        if textView.text.isEmpty {
+            textView.text = "Placeholder"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    
+    @IBAction func selesaiAction(_ sender: Any) {
+        
+    }
+    
+    @IBAction func hapusAction(_ sender: Any) {
+        
+    }
+    
 }
 
 
@@ -152,7 +170,6 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         default:
             return 0
         }
-        return randoms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -168,14 +185,14 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         }
         if indexPath.section == 1{
             cell2.textLabel?.text = randoms[indexPath.row]
-            cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailActivity?.ulangi)!]
+            cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailUnmanaged?.ulangi)!]
             cell2.accessoryType = .disclosureIndicator
             return cell2
             
         }
         if indexPath.section == 2{
             cell2.textLabel?.text = randoms[indexPath.row+1]
-            cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailActivity?.peringatan)!]
+            cell2.detailTextLabel?.text = peringatanDataSource[(fullDetailUnmanaged?.peringatan)!]
             cell2.accessoryType = .disclosureIndicator
             return cell2
             
@@ -183,7 +200,7 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         
         if indexPath.section == 3{
             cell2.textLabel?.text = randoms[indexPath.row+2]
-            cell2.detailTextLabel?.text = dataSource[(fullDetailActivity?.perasaanBefore)!]
+            cell2.detailTextLabel?.text = dataSource[(fullDetailUnmanaged?.perasaanBefore)!]
             cell2.accessoryType = .disclosureIndicator
             return cell2
             
@@ -191,7 +208,7 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         
         if indexPath.section == 4{
             cell2.textLabel?.text = randoms[indexPath.row+3]
-            cell2.detailTextLabel?.text = dataSource[(fullDetailActivity?.perasaanSesudah)!]
+            cell2.detailTextLabel?.text = dataSource[(fullDetailUnmanaged?.perasaanSesudah)!]
             cell2.accessoryType = .disclosureIndicator
             return cell2
             
@@ -199,7 +216,15 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         
         if indexPath.section == 5{
             let cell3 = tableView.dequeueReusableCell(withIdentifier: "activityCell3") as! NewActivity2TableViewCell
-            cell3.catatanTextView.text = "Catatan"
+            print(fullDetailActivity?.note as Any)
+            if fullDetailActivity?.note == "" {
+                cell3.catatanTextView.delegate = self
+                cell3.catatanTextView.text = "Catatan"
+                cell3.catatanTextView.textColor = UIColor.lightGray
+            }else {
+                cell3.catatanTextView.text = fullDetailActivity?.note
+
+            }
             tableView.separatorStyle = .none
             return cell3
             
@@ -259,6 +284,11 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+        return view
+    }
     
 }
 
@@ -274,17 +304,11 @@ extension EditActivityViewController: UIPickerViewDataSource, UIPickerViewDelega
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let realm = try! Realm()
-        let temp = dataSource[row]
-        let temp2 = temp.last
         
         if pickerView == beforePickerView {
-            try! realm.write({
-                fullDetailActivity?.perasaanBefore = row
-            })
+            fullDetailUnmanaged?.perasaanBefore = row
         } else {
-            try! realm.write({
-                fullDetailActivity?.perasaanSesudah = row
-            })
+            fullDetailUnmanaged?.perasaanSesudah = row
         }
         tableView.reloadData()
     }

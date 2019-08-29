@@ -16,4 +16,5 @@ class FullRefleksiTableViewCell: UITableViewCell {
     
     @IBOutlet weak var timestampLabel: UILabel!
     
+    @IBOutlet weak var journalView: UIView!
 }

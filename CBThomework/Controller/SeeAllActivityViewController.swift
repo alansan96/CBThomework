@@ -24,8 +24,11 @@ class SeeAllActivityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.separatorStyle = .none
         activities = fetchAllActivities()
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+        tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+
        
         
     }
@@ -60,13 +63,16 @@ extension SeeAllActivityViewController : UITableViewDelegate, UITableViewDataSou
         let cell = tableView.dequeueReusableCell(withIdentifier: "fullActivityCell") as! FullActivityTableViewCell
         cell.selectionStyle = .none
         cell.judulLabel.text = activities[indexPath.row].title
+        cell.judulLabel.font = UIFont.boldSystemFont(ofSize: 18)
         cell.timestampLabel.text = activities[indexPath.row].date
+        cell.activityView.dropShadow()
+        cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 162
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
