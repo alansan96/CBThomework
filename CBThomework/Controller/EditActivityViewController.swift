@@ -29,7 +29,43 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var dataSource = ["  ", "Sedih Sekali 😔", "Sedih 😟", "Biasa Saja 😐", "Senang 🙂", "Senang Sekali 😃"]
     
     var emojiBefore : String = ""
+    var boolCheck = false
+    var labelSection2 : [String] = ["Ulangi"]
+    var temp = "waktunya"
     
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fullDetailUnmanaged = Activity(value: fullDetailActivity)
+        
+        if fullDetailUnmanaged?.ulangi != 0 {
+            boolCheck = true
+        }
+        
+        if boolCheck == true && labelSection2.count < 2 {
+            labelSection2.append("Ulangi Sampai")
+            labelSection2.append("Ulangi Sampai lagi")
+            
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
+            tableView.insertRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
+            tableView.endUpdates()
+            temp = getDateNow()
+            
+            tableView.reloadData()
+            
+        }
+        
+    }
+    
+    func getDateNow() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        formatter.locale = Locale(identifier: "id")
+        let result = formatter.string(from: date)
+        return result
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +73,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         tableView.bounces = false
         tableView.isScrollEnabled = false
-        fullDetailUnmanaged = Activity(value: fullDetailActivity)
 
     }
     
@@ -64,45 +99,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
 
         })
         
-        
-    }
-    
-    
-    
-    func blurredPickerView() {
-        let blurredBackground = UIVisualEffectView()
-        blurredBackground.frame =  view.frame
-        blurredBackground.backgroundColor = .gray
-        blurredBackground.layer.opacity = 0.5
-        blurredBackground.layer.opacity = 0.5
-        blurredBackground.effect = UIBlurEffect(style: .light)
-        blurredBackground.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(removeBlurredPickerView)))
-        
-        view.addSubview(blurredBackground)
-        
-    }
-    
-    func createPickerView() -> UIPickerView {
-        let pickerViews = UIPickerView(frame: CGRect(x: view.frame.minX, y: view.frame.midY - 75, width: view.frame.width, height: 150))
-        //print("aaa")
-        pickerViews.backgroundColor = UIColor.white
-        pickerViews.dataSource = self
-        pickerViews.delegate = self
-        
-        view.addSubview(pickerViews)
-        view.bringSubviewToFront(pickerViews)
-        
-        return pickerViews
-    }
-    
-    @objc func removeBlurredPickerView(_ gesture : UITapGestureRecognizer){
-        
-        for subview in view.subviews {
-            if subview.isKind(of: UIVisualEffectView.self) || subview.isKind(of: UIPickerView.self){
-                subview.removeFromSuperview()
-                
-            }
-        }
     }
     
     
@@ -113,8 +109,8 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     }
     
     //protocol
-    func setResultOfBusinessLogic(id: Int, valueSent: String) {
-
+    func setResultOfBusinessLogic(id: Int, valueSent: String, isNever: Bool) {
+        boolCheck = isNever
         fullDetailUnmanaged?.ulangi = id
         tableView.reloadData()
     }
@@ -158,6 +154,44 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         
     }
     
+    
+    //PICKER VIEW EMOJI
+    func blurredPickerView() {
+        let blurredBackground = UIVisualEffectView()
+        blurredBackground.frame =  view.frame
+        blurredBackground.backgroundColor = .gray
+        blurredBackground.layer.opacity = 0.5
+        blurredBackground.layer.opacity = 0.5
+        blurredBackground.effect = UIBlurEffect(style: .light)
+        blurredBackground.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(removeBlurredPickerView)))
+        
+        view.addSubview(blurredBackground)
+        
+    }
+    
+    func createPickerView() -> UIPickerView {
+        let pickerViews = UIPickerView(frame: CGRect(x: view.frame.minX, y: view.frame.midY - 75, width: view.frame.width, height: 150))
+        //print("aaa")
+        pickerViews.backgroundColor = UIColor.white
+        pickerViews.dataSource = self
+        pickerViews.delegate = self
+        
+        view.addSubview(pickerViews)
+        view.bringSubviewToFront(pickerViews)
+        
+        return pickerViews
+    }
+    
+    @objc func removeBlurredPickerView(_ gesture : UITapGestureRecognizer){
+        
+        for subview in view.subviews {
+            if subview.isKind(of: UIVisualEffectView.self) || subview.isKind(of: UIPickerView.self){
+                subview.removeFromSuperview()
+                
+            }
+        }
+    }
+    
 }
 
 
@@ -165,15 +199,36 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0,1,2,3,4,5:
+        case 0,2,3,4,5:
             return 1
+        case 1:
+            return labelSection2.count
         default:
             return 0
         }
     }
     
+    @objc func handler(sender: UIDatePicker){
+
+        
+        let dateFromatter = DateFormatter()
+        let index = IndexPath(item: 1, section: 1)
+        tableView.reloadRows(at: [index], with: .automatic)
+        dateFromatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        
+        dateFromatter.locale = Locale(identifier: "id")
+        print(dateFromatter.string(from: sender.date))
+        temp = dateFromatter.string(from: sender.date)
+        tableView.reloadRows(at: [index], with: .automatic)
+        
+        //reload rows
+        
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell2 = UITableViewCell(style: .value1, reuseIdentifier: "activityCell")
+        let cellPicker2 = tableView.dequeueReusableCell(withIdentifier: "pickerCell2") as! PickerEditActivityTableViewCell
         cell2.selectionStyle = .none
         
         
@@ -184,8 +239,20 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             
         }
         if indexPath.section == 1{
-            cell2.textLabel?.text = randoms[indexPath.row]
-            cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailUnmanaged?.ulangi)!]
+            if indexPath.row == 0 {
+                cell2.textLabel?.text = randoms[indexPath.row]
+                cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailUnmanaged?.ulangi)!]
+                
+            }else if indexPath.row == 1 {
+                cell2.detailTextLabel?.text = temp
+                cell2.textLabel?.text = "Tanggal Berakhir"
+            }else if indexPath.row == 2 {
+                cellPicker2.pickerView.datePickerMode = .dateAndTime
+                cellPicker2.pickerView.locale = Locale(identifier: "id")
+                cellPicker2.pickerView.addTarget(self, action: #selector(handler), for: .valueChanged)
+                return cellPicker2
+            }
+            
             cell2.accessoryType = .disclosureIndicator
             return cell2
             
@@ -225,7 +292,6 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
                 cell3.catatanTextView.text = fullDetailActivity?.note
 
             }
-            tableView.separatorStyle = .none
             return cell3
             
         }
@@ -244,12 +310,18 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            if indexPath.row == 2 {
+                return 200
+            }
+        }
+
         if indexPath.section < 4 {
             return 44
-        }
-        if indexPath.section > 4 {
+        }else if indexPath.section > 4 {
             return 162
         }
+       
         return 50
     }
     

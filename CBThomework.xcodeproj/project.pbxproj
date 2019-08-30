@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F696230F7CEB00021C2D /* SettingViewController.swift */; };
 		6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */; };
+		691B60212317A649007E9C3F /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691B60202317A649007E9C3F /* PickerTableViewCell.swift */; };
+		6972BBBE23183E6000CBA969 /* PickerEditActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */; };
 		698E88C92310ED3600101B80 /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E88C82310ED3600101B80 /* EditActivityViewController.swift */; };
 		6994C8E8231116EE00A2A3D0 /* UlangiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */; };
 		6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */; };
@@ -42,6 +44,8 @@
 		559BC93F310F31FCCADEB499 /* Pods-CBThomework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CBThomework.debug.xcconfig"; path = "Target Support Files/Pods-CBThomework/Pods-CBThomework.debug.xcconfig"; sourceTree = "<group>"; };
 		6903F696230F7CEB00021C2D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		691B60202317A649007E9C3F /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
+		6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerEditActivityTableViewCell.swift; sourceTree = "<group>"; };
 		698E88C82310ED3600101B80 /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
 		6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlangiViewController.swift; sourceTree = "<group>"; };
 		6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeringatanViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				69BEDE10231375700025A30E /* FirstActivityJudulTableViewCell.swift */,
 				69BEDE12231398420025A30E /* FullActivityTableViewCell.swift */,
 				69BEDE14231408AF0025A30E /* FullRefleksiTableViewCell.swift */,
+				691B60202317A649007E9C3F /* PickerTableViewCell.swift */,
+				6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -165,10 +171,10 @@
 				698E88CC2310F5C700101B80 /* Cell */,
 				69A62D35230E300E00000543 /* ViewController.swift */,
 				6903F696230F7CEB00021C2D /* SettingViewController.swift */,
-				698E88C82310ED3600101B80 /* EditActivityViewController.swift */,
 				6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */,
 				6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */,
 				69BEDDE6231251B80025A30E /* NewJournalViewController.swift */,
+				698E88C82310ED3600101B80 /* EditActivityViewController.swift */,
 				69BEDE0E231374AF0025A30E /* FirstActivityViewController.swift */,
 				69BEDE0C23128FA60025A30E /* SeeAllActivityViewController.swift */,
 				69BEDE162314092C0025A30E /* SeeAllJournalViewController.swift */,
@@ -316,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6972BBBE23183E6000CBA969 /* PickerEditActivityTableViewCell.swift in Sources */,
 				69BEDE07231269260025A30E /* NewActivity1TableViewCell.swift in Sources */,
 				69B47FDC23162A6300F1D42F /* hapusButton.swift in Sources */,
 				69A62D49230E381E00000543 /* FirstTableViewCell.swift in Sources */,
@@ -337,6 +344,7 @@
 				69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */,
 				69A62D34230E300E00000543 /* AppDelegate.swift in Sources */,
 				6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */,
+				691B60212317A649007E9C3F /* PickerTableViewCell.swift in Sources */,
 				6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */,
 				69BEDE172314092C0025A30E /* SeeAllJournalViewController.swift in Sources */,
 				69A62D51230E6C0000000543 /* Journal.swift in Sources */,

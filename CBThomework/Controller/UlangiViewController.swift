@@ -24,7 +24,7 @@ class UlangiViewController: UIViewController {
     
     override func didMove(toParent parent: UIViewController?) {
         if !(parent?.isEqual(self.parent) ?? false) {
-            print("Parent view loaded")
+            //print("Parent view loaded")
         }
         super.didMove(toParent: parent)
     }
@@ -58,9 +58,13 @@ extension UlangiViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        self.delegate?.setResultOfBusinessLogic(id: indexPath.row, valueSent: labels[indexPath.row])
+        if indexPath.row == 0 {
+            self.delegate?.setResultOfBusinessLogic(id: indexPath.row, valueSent: labels[indexPath.row], isNever: false)
 
-        print(indexPath.row)
+        }else{
+            self.delegate?.setResultOfBusinessLogic(id: indexPath.row, valueSent: labels[indexPath.row], isNever: true)
+
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -87,6 +91,6 @@ extension UlangiViewController : UITableViewDelegate, UITableViewDataSource {
 }
 
 protocol MyProtocol {
-    func setResultOfBusinessLogic(id: Int, valueSent: String)
+    func setResultOfBusinessLogic(id: Int, valueSent: String, isNever : Bool)
 }
 
