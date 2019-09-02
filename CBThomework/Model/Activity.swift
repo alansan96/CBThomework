@@ -18,6 +18,7 @@ class Activity : Object{
    @objc dynamic var perasaanBefore : Int = 0
    @objc dynamic var perasaanSesudah : Int = 0
    @objc dynamic var date : String = ""
+    @objc dynamic var endDate : String = ""
     @objc dynamic var note : String = ""
     
   

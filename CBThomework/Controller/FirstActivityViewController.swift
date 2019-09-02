@@ -12,10 +12,11 @@ import RealmSwift
 class FirstActivityViewController: UIViewController, MyProtocol, peringatanProtocol {
     
     @IBOutlet weak var tableView: UITableView!
-    var labels : [String] = ["Ulangi", "Ulangi Sampai", "Peringatan", ""]
+    var labels : [String] = ["Ulangi", "Tanggal Berakhir", "Peringatan", ""]
     var details : [String] = ["Jangan Pernah", "Tidak Ada", "Tidak Ada"]
     var details2 : [Int] = [0,0,0,0]
     var temp = ""
+    var tempEndDate = ""
     var newLabel : [String] = ["Ulangi"]
     
     var boolCheck = false
@@ -34,19 +35,18 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         }
         
         if boolCheck == true && newLabel.count < 2 {
-            newLabel.append("Ulangi Sampai")
+            newLabel.append("Tanggal Berakhir")
             newLabel.append("Ulangi Sampai lagi")
             tableView.beginUpdates()
             tableView.insertRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             tableView.insertRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
             tableView.endUpdates()
             temp = getDateNow()
+            tempEndDate = getDateNow()
             tableView.reloadData()
             
         }
-        
-        
-        
+
     }
     
     override func viewDidLoad() {
@@ -64,12 +64,12 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         let newActivity = Activity()
         newActivity.title = Titlecell.judulKegiatanTextField.text ?? ""
         newActivity.ulangi = details2[0]
-        newActivity.peringatan = details2[1]
-        
+        newActivity.peringatan = details2[2]
+        newActivity.endDate = tempEndDate
         
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:SS"
+        formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
         let result = formatter.string(from: date)
         newActivity.date = result
         
@@ -113,7 +113,7 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
     func getDateNow() -> String {
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        formatter.dateFormat = "E, dd MMM YYYY"
         formatter.locale = Locale(identifier: "id")
         let result = formatter.string(from: date)
         return result
@@ -136,15 +136,19 @@ extension FirstActivityViewController : UITableViewDelegate, UITableViewDataSour
         let dateFromatter = DateFormatter()
         let index = IndexPath(item: 1, section: 1)
         tableView.reloadRows(at: [index], with: .automatic)
-        dateFromatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        dateFromatter.dateFormat = "E, dd MMM YYYY"
       
         dateFromatter.locale = Locale(identifier: "id")
-        print(dateFromatter.string(from: sender.date))
+        print("\(dateFromatter.string(from: sender.date))")
         temp = dateFromatter.string(from: sender.date)
         tableView.reloadRows(at: [index], with: .automatic)
 
         //reload rows
-       
+        let dateFromatter2 = DateFormatter()
+        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        tempEndDate = dateFromatter2.string(from: sender.date)
+        print(tempEndDate)
+
         
     }
     
@@ -171,8 +175,9 @@ extension FirstActivityViewController : UITableViewDelegate, UITableViewDataSour
                 
             }else if indexPath.row == 2 {
                
-                cellPicker.pickerViewOutlet.datePickerMode = .dateAndTime
+                cellPicker.pickerViewOutlet.datePickerMode = .date
                 cellPicker.pickerViewOutlet.locale = Locale(identifier: "id")
+                cellPicker.pickerViewOutlet.minimumDate = Date.init()
                 cellPicker.pickerViewOutlet.addTarget(self, action: #selector(handler), for: .valueChanged)
                 return cellPicker
             }

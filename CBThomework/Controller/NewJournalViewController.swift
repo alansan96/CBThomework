@@ -76,7 +76,7 @@ class NewJournalViewController: UIViewController, UITextViewDelegate {
         
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:SS"
+        formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
         let result = formatter.string(from: date)
         journal1.date = result
         

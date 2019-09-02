@@ -33,10 +33,24 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var labelSection2 : [String] = ["Ulangi"]
     var temp = "waktunya"
     
-    
+    var tempUlangi = 0
+    var tempPeringatan = 0
+    var tempEndDate = ""
     
     override func viewWillAppear(_ animated: Bool) {
-        fullDetailUnmanaged = Activity(value: fullDetailActivity)
+        
+        
+        if boolCheck == false && labelSection2.count > 1 {
+            tableView.beginUpdates()
+            labelSection2.remove(at: 1)
+            tableView.deleteRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
+            
+            labelSection2.remove(at: 1)
+            tableView.deleteRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
+            getDateNowFullFormat()
+            tableView.endUpdates()
+        }
+        
         
         if fullDetailUnmanaged?.ulangi != 0 {
             boolCheck = true
@@ -52,7 +66,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             tableView.endUpdates()
             temp = getDateNow()
             
-            tableView.reloadData()
+            tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             
         }
         
@@ -61,18 +75,35 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     func getDateNow() -> String {
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        formatter.dateFormat = "E, dd MMM YYYY"
         formatter.locale = Locale(identifier: "id")
         let result = formatter.string(from: date)
         return result
     }
     
+    func getDateNowFullFormat() {
+        let dateFromatter2 = DateFormatter()
+        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        tempEndDate = dateFromatter2.string(from: Date.init())
+        print(tempEndDate)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Hello world")
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+        tableView.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         tableView.bounces = false
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
+        fullDetailUnmanaged = Activity(value: fullDetailActivity)
+        tempUlangi = fullDetailUnmanaged?.ulangi ?? 0
+        tempPeringatan = fullDetailUnmanaged?.peringatan ?? 0
+        
+        let dateFromatter = DateFormatter()
+        dateFromatter.dateFormat = "dd.MM.YYYY hh:mm:ss"
+
+        
+        tempEndDate = dateFromatter.string(from: Date.init())
+        
 
     }
     
@@ -81,10 +112,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         let Titlecell = self.tableView.cellForRow(at: IndexPath(item: 0, section: 0)) as! NewActivity1TableViewCell // judul
         
         let CatatanCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: 5)) as! NewActivity2TableViewCell // judul
-        
-        
-        print(Titlecell.titleTextField.text as Any)
-        print(CatatanCell.catatanTextView.text as Any)
+   
         
         let realm = try! Realm()
         
@@ -92,11 +120,11 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             fullDetailActivity?.title = Titlecell.titleTextField.text!
             let note = (CatatanCell.catatanTextView.text == "Catatan") ? "" : CatatanCell.catatanTextView.text
             fullDetailActivity?.note = note ?? ""
-            fullDetailActivity?.ulangi = fullDetailUnmanaged?.ulangi ?? 0
+            fullDetailActivity?.ulangi = tempUlangi
             fullDetailActivity?.peringatan = fullDetailUnmanaged?.peringatan ?? 0
             fullDetailActivity?.perasaanSesudah = fullDetailUnmanaged?.perasaanSesudah ?? 0
             fullDetailActivity?.perasaanBefore = fullDetailUnmanaged?.perasaanBefore ?? 0
-
+            fullDetailActivity?.endDate = tempEndDate
         })
         
     }
@@ -105,14 +133,16 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     //protocol
     func setPeringatan(id: Int, valueSent: String) {
         fullDetailUnmanaged?.peringatan = id
-        tableView.reloadData()
+        tempPeringatan = id
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .automatic)
     }
     
     //protocol
     func setResultOfBusinessLogic(id: Int, valueSent: String, isNever: Bool) {
         boolCheck = isNever
         fullDetailUnmanaged?.ulangi = id
-        tableView.reloadData()
+        tempUlangi = id
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
     }
     
     
@@ -129,7 +159,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("masuk edit")
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.black
@@ -137,7 +166,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("selesai edit")
         
         if textView.text.isEmpty {
             textView.text = "Placeholder"
@@ -171,7 +199,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     
     func createPickerView() -> UIPickerView {
         let pickerViews = UIPickerView(frame: CGRect(x: view.frame.minX, y: view.frame.midY - 75, width: view.frame.width, height: 150))
-        //print("aaa")
         pickerViews.backgroundColor = UIColor.white
         pickerViews.dataSource = self
         pickerViews.delegate = self
@@ -199,7 +226,7 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0,2,3,4,5:
+        case 0,2,3,4,5,6,7:
             return 1
         case 1:
             return labelSection2.count
@@ -214,7 +241,7 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         let dateFromatter = DateFormatter()
         let index = IndexPath(item: 1, section: 1)
         tableView.reloadRows(at: [index], with: .automatic)
-        dateFromatter.dateFormat = "E, dd/MMM/YYYY HH:mm"
+        dateFromatter.dateFormat = "E, dd MMM YYYY"
         
         dateFromatter.locale = Locale(identifier: "id")
         print(dateFromatter.string(from: sender.date))
@@ -222,8 +249,10 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         tableView.reloadRows(at: [index], with: .automatic)
         
         //reload rows
-        
-        
+        let dateFromatter2 = DateFormatter()
+        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        tempEndDate = dateFromatter2.string(from: sender.date)
+        print(tempEndDate)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -242,12 +271,13 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             if indexPath.row == 0 {
                 cell2.textLabel?.text = randoms[indexPath.row]
                 cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailUnmanaged?.ulangi)!]
-                
+
             }else if indexPath.row == 1 {
                 cell2.detailTextLabel?.text = temp
                 cell2.textLabel?.text = "Tanggal Berakhir"
             }else if indexPath.row == 2 {
-                cellPicker2.pickerView.datePickerMode = .dateAndTime
+                cellPicker2.pickerView.datePickerMode = .date
+                cellPicker2.pickerView.minimumDate = Date.init()
                 cellPicker2.pickerView.locale = Locale(identifier: "id")
                 cellPicker2.pickerView.addTarget(self, action: #selector(handler), for: .valueChanged)
                 return cellPicker2
@@ -283,7 +313,6 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
         
         if indexPath.section == 5{
             let cell3 = tableView.dequeueReusableCell(withIdentifier: "activityCell3") as! NewActivity2TableViewCell
-            print(fullDetailActivity?.note as Any)
             if fullDetailActivity?.note == "" {
                 cell3.catatanTextView.delegate = self
                 cell3.catatanTextView.text = "Catatan"
@@ -296,13 +325,27 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             
         }
         
+        if indexPath.section == 6{
+            let cell5 = tableView.dequeueReusableCell(withIdentifier: "selesaiCell") as! SelesaiTableViewCell
+            cell5.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+            cell5.selectionStyle = .none
+            return cell5
+        }
+        
+        if indexPath.section == 7{
+            let cell5 = tableView.dequeueReusableCell(withIdentifier: "hapusCell") as! HapusTableViewCell
+            cell5.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
+            cell5.selectionStyle = .none
+            return cell5
+        }
+        
         
         return UITableViewCell()
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return 8
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -316,28 +359,32 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             }
         }
 
-        if indexPath.section < 4 {
+        if indexPath.section < 5 {
             return 44
-        }else if indexPath.section > 4 {
+        }else if indexPath.section == 5 {
             return 162
+        }else if indexPath.section > 5{
+            return 51
+
+        }else{
+            return 70
         }
        
-        return 50
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 6 {
-            return 400
+        if section == 8 {
+            return 500
         }
         return 19
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && indexPath.row == 0{
             self.performSegue(withIdentifier: "ulangiSegue", sender: self)
             
         }
-        if indexPath.section == 2 {
+        if indexPath.section == 2  {
             self.performSegue(withIdentifier: "peringatanSegue", sender: self)
             
         }
