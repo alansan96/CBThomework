@@ -12,14 +12,17 @@ import RealmSwift
 
 class Activity : Object{
     
-   @objc dynamic var title : String = ""
-   @objc dynamic var ulangi : Int = 0
-   @objc dynamic var peringatan : Int = 0
-   @objc dynamic var perasaanBefore : Int = 0
-   @objc dynamic var perasaanSesudah : Int = 0
-   @objc dynamic var date : String = ""
+    @objc dynamic var title : String = ""
+    @objc dynamic var ulangi : Int = 0
+    @objc dynamic var peringatan : Int = 0
+    @objc dynamic var perasaanBefore : Int = 0
+    @objc dynamic var perasaanSesudah : Int = 0
+    @objc dynamic var date : String = ""
     @objc dynamic var endDate : String = ""
     @objc dynamic var note : String = ""
+    @objc dynamic var currentFrequency = 0
+    @objc dynamic var totalFrequency = 0
+
     
   
 }

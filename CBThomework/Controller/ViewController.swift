@@ -122,6 +122,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .none
             cell.aktivitasView.dropShadow()
             cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+            
+            cell.frekuensiLabel.text = "Progress:\(activities[indexPath.row].currentFrequency)      Total: \(activities[indexPath.row].totalFrequency)"
+            
+            
             return cell
             
             
@@ -256,6 +260,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+ 
         return 50
     }
     

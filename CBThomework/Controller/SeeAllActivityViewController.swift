@@ -19,13 +19,13 @@ class SeeAllActivityViewController: UIViewController {
     var activityToSend : Activity?
 
     override func viewWillAppear(_ animated: Bool) {
+        activities = fetchAllActivities()
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
-        activities = fetchAllActivities()
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
 

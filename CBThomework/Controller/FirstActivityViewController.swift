@@ -20,7 +20,8 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
     var newLabel : [String] = ["Ulangi"]
     
     var boolCheck = false
-    
+    var daysCounter : [Int] = [0,1,2,3,7,14]
+
     
     override func viewWillAppear(_ animated: Bool) {
         if boolCheck == false && newLabel.count > 1 {
@@ -42,7 +43,11 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
             tableView.insertRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
             tableView.endUpdates()
             temp = getDateNow()
-            tempEndDate = getDateNow()
+            
+            //END DATE
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
+            tempEndDate = formatter.string(from: Date.init())
             tableView.reloadData()
             
         }
@@ -73,14 +78,70 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         let result = formatter.string(from: date)
         newActivity.date = result
         
+        //FREQUENCY
+        let startDateString = String(newActivity.date.prefix(10))
+        var endDateString = String(newActivity.endDate.prefix(10))
         
-        try! realm.write {
-            realm.add(newActivity)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy" //Your date format
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00") //Current time zone
+        //according to date format your date string
+        
+        if newActivity.ulangi == 0 {
+            endDateString = startDateString
+            
+        }
+        guard let startDate = dateFormatter.date(from: startDateString) else {
+            fatalError()
         }
         
+        guard let endDate = dateFormatter.date(from: endDateString) else {
+            fatalError()
+        }
+        print("progress :\(startDate)   |    Total:  \(endDate)")
+
+        let calendar = Calendar.current
+        let numberOfDays = calendar.dateComponents([.day], from: startDate, to: endDate).day! + 1
+        //print(numberOfDays)
+        
+        //GET EVERY NUMBER OF DAYS
+        let everyNumDays = newActivity.ulangi
+        var total = 1
+        if daysCounter[everyNumDays] != 0 {
+            total = calculateTotalFrequency(totalHari: numberOfDays, setiap: daysCounter[everyNumDays])
+        }
+        
+        // COUNTER FREQUENCY ACTIVITY
+        var currentProgress = newActivity.currentFrequency
+        print("progress :\(currentProgress)   |    Total:  \(total)")
+        
+        newActivity.totalFrequency = total
+        
+        
+        //ALERT
+        let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan menambah aktivitas anda", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+            print("cancel")
+        }))
+        alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+            try! realm.write {
+                realm.add(newActivity)
+            }
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
         
         
         
+    }
+    
+    func calculateTotalFrequency(totalHari : Int, setiap : Int) -> Int{
+        var result = 0
+        var totalHariSen = totalHari - 1
+        result = ((totalHariSen+setiap) - ((totalHariSen + setiap) % setiap )) / setiap
+        
+        return result
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

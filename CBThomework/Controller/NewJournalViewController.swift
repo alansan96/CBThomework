@@ -15,17 +15,24 @@ class NewJournalViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var journalDescription: UITextView!
     @IBOutlet weak var tambahOutlet: UIBarButtonItem!
     
+    
+    
+    @IBOutlet weak var hapusOutlet: UIButton!
+    
     var fullJournalDetail : Journal?
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(fullJournalDetail)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view2 \(fullJournalDetail)")
         journalDescription.delegate = self
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
-
+        
         initiateData()
-    
+        
     }
     
     func textViewDidBeginEditing(_ journalDescription: UITextView) {
@@ -36,11 +43,9 @@ class NewJournalViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    
-    
     func textViewDidEndEditing(_ journalDescription: UITextView) {
         print("selesai edit")
-
+        
         if journalDescription.text.isEmpty {
             journalDescription.text = "Placeholder"
             journalDescription.textColor = UIColor.lightGray
@@ -59,13 +64,13 @@ class NewJournalViewController: UIViewController, UITextViewDelegate {
             journalTitle.placeholder = "Judul Title"
             journalDescription.text = "Catatan"
             journalDescription.textColor = UIColor.lightGray
+            hapusOutlet.isHidden = true
             
         }
         
         
         
     }
-    
     
     func sendToRealm(){
         let realm = try! Realm()
@@ -88,19 +93,79 @@ class NewJournalViewController: UIViewController, UITextViewDelegate {
         
         
     }
-
+    
     @IBAction func addJournalAction(_ sender: UIBarButtonItem) {
-        let realm = try! Realm()
-
-        if fullJournalDetail != nil {
-            try! realm.write {
-                fullJournalDetail?.title = journalTitle.text!
-                fullJournalDetail?.descriptionText = journalDescription.text
-            }
+        if sender.title == "Edit" {
+            let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan mengubah refleksi anda", preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+                print("cancel")
+            }))
+            alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+                let realm = try! Realm()
+                if self.fullJournalDetail != nil {
+                    try! realm.write {
+                        self.fullJournalDetail?.title = self.journalTitle.text!
+                        self.fullJournalDetail?.descriptionText = self.journalDescription.text
+                    }
+                }else {
+                    self.sendToRealm()
+                    
+                }
+                self.navigationController?.popViewController(animated: true)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
         }else {
-            sendToRealm()
-
+            let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan menambah refleksi anda", preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+                print("cancel")
+            }))
+            alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+                let realm = try! Realm()
+                if self.fullJournalDetail != nil {
+                    try! realm.write {
+                        self.fullJournalDetail?.title = self.journalTitle.text!
+                        self.fullJournalDetail?.descriptionText = self.journalDescription.text
+                    }
+                }else {
+                    self.sendToRealm()
+                    
+                }
+                self.navigationController?.popViewController(animated: true)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
         }
+        
+        
+        
+        
     }
+    
+
+    
+    @IBAction func hapusActiion(_ sender: Any) {
+        let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan menghapus refleksi yang anda pilih", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+            print("cancel")
+        }))
+        alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+            let realm = try! Realm()
+            let items = realm.objects(Journal.self).filter("date = '\(self.fullJournalDetail?.date ?? "")'")
+            print(items)
+            try! realm.write {
+                realm.delete(items)
+            }
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     
 }

@@ -15,6 +15,7 @@ class FirstTableViewCell: UITableViewCell {
     
     @IBOutlet weak var timestampLabel: UILabel!
     
+    @IBOutlet weak var frekuensiLabel: UILabel!
     
     
     

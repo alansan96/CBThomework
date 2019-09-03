@@ -285,6 +285,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="aktivitasView" destination="0uE-aY-lKS" id="dBw-0o-6ah"/>
+                                            <outlet property="frekuensiLabel" destination="1O2-Ni-TJH" id="ceB-nn-4JN"/>
                                             <outlet property="label" destination="iLg-Nk-Fhh" id="VQ3-lS-11N"/>
                                             <outlet property="timestampLabel" destination="qAM-2R-p4O" id="tLn-2C-J8G"/>
                                         </connections>
@@ -743,14 +744,30 @@
                                     <constraint firstAttribute="height" constant="414" id="zLa-6g-Coq"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGn-cZ-VVG">
+                                <rect key="frame" x="20" y="603" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.81618813450000005" green="0.20704457609999999" blue="0.18826684329999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Jvj-Sf-laq"/>
+                                </constraints>
+                                <state key="normal" title="Hapus">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="hapusActiion:" destination="Ob1-gY-6bK" eventType="touchUpInside" id="EDl-ss-uQG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cGn-cZ-VVG" firstAttribute="top" secondItem="Tai-Rb-KEn" secondAttribute="bottom" constant="19" id="Ivx-XY-hKr"/>
                             <constraint firstItem="Tai-Rb-KEn" firstAttribute="top" secondItem="9HF-du-z3l" secondAttribute="bottom" constant="19" id="QXA-KY-YM3"/>
                             <constraint firstItem="Tai-Rb-KEn" firstAttribute="leading" secondItem="ADR-Nq-6lq" secondAttribute="leading" id="ZCd-4T-p5Y"/>
+                            <constraint firstItem="cGn-cZ-VVG" firstAttribute="leading" secondItem="ADR-Nq-6lq" secondAttribute="leading" constant="20" id="ZCh-KX-QxI"/>
                             <constraint firstItem="9HF-du-z3l" firstAttribute="leading" secondItem="ADR-Nq-6lq" secondAttribute="leading" id="azS-Ej-vMx"/>
                             <constraint firstItem="9HF-du-z3l" firstAttribute="trailing" secondItem="ADR-Nq-6lq" secondAttribute="trailing" id="cPu-uU-1Td"/>
                             <constraint firstItem="Tai-Rb-KEn" firstAttribute="trailing" secondItem="ADR-Nq-6lq" secondAttribute="trailing" id="iw3-ke-GvD"/>
+                            <constraint firstItem="ADR-Nq-6lq" firstAttribute="trailing" secondItem="cGn-cZ-VVG" secondAttribute="trailing" constant="20" id="qJa-oa-srG"/>
                             <constraint firstItem="9HF-du-z3l" firstAttribute="top" secondItem="ADR-Nq-6lq" secondAttribute="top" constant="19" id="sPj-hq-0cb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ADR-Nq-6lq"/>
@@ -763,6 +780,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="hapusOutlet" destination="cGn-cZ-VVG" id="cH4-Wr-x8s"/>
                         <outlet property="journalDescription" destination="ZsV-3O-Iua" id="tUo-2F-P3T"/>
                         <outlet property="journalTitle" destination="iYS-ag-qxL" id="phU-mG-2yT"/>
                         <outlet property="tambahOutlet" destination="68f-Et-WWL" id="mmN-PY-dLh"/>
@@ -833,9 +851,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="74E-T0-LA4"/>
-        <segue reference="IWx-8g-2p2"/>
+        <segue reference="bQg-mH-9cJ"/>
+        <segue reference="P4N-bh-F4o"/>
         <segue reference="JmM-SS-dO4"/>
-        <segue reference="QTe-YV-7vw"/>
+        <segue reference="9U1-Nl-jSa"/>
     </inferredMetricsTieBreakers>
 </document>

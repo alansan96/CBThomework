@@ -36,6 +36,8 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var tempUlangi = 0
     var tempPeringatan = 0
     var tempEndDate = ""
+    var daysCounter : [Int] = [0,1,2,3,7,14]
+
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -94,6 +96,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         tableView.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         tableView.bounces = false
         tableView.isScrollEnabled = true
+        tableView.separatorStyle = .none
         fullDetailUnmanaged = Activity(value: fullDetailActivity)
         tempUlangi = fullDetailUnmanaged?.ulangi ?? 0
         tempPeringatan = fullDetailUnmanaged?.peringatan ?? 0
@@ -115,20 +118,80 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
    
         
         let realm = try! Realm()
+        //FREQUENCY
+        let startDateString = String((fullDetailUnmanaged?.date.prefix(10))!)
+        var endDateString = String((fullDetailUnmanaged?.endDate.prefix(10))!)
         
-        try! realm.write({
-            fullDetailActivity?.title = Titlecell.titleTextField.text!
-            let note = (CatatanCell.catatanTextView.text == "Catatan") ? "" : CatatanCell.catatanTextView.text
-            fullDetailActivity?.note = note ?? ""
-            fullDetailActivity?.ulangi = tempUlangi
-            fullDetailActivity?.peringatan = fullDetailUnmanaged?.peringatan ?? 0
-            fullDetailActivity?.perasaanSesudah = fullDetailUnmanaged?.perasaanSesudah ?? 0
-            fullDetailActivity?.perasaanBefore = fullDetailUnmanaged?.perasaanBefore ?? 0
-            fullDetailActivity?.endDate = tempEndDate
-        })
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy" //Your date format
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00") //Current time zone
+        //according to date format your date string
+        
+        if fullDetailUnmanaged?.ulangi == 0 {
+            endDateString = startDateString
+            
+        }
+        guard let startDate = dateFormatter.date(from: startDateString) else {
+            fatalError()
+        }
+        
+        guard let endDate = dateFormatter.date(from: endDateString) else {
+            fatalError()
+        }
+        print("progress :\(startDate)   |    Total:  \(endDate)")
+        
+        let calendar = Calendar.current
+        let numberOfDays = calendar.dateComponents([.day], from: startDate, to: endDate).day! + 1
+        //print(numberOfDays)
+        
+        //GET EVERY NUMBER OF DAYS
+        let everyNumDays = fullDetailUnmanaged?.ulangi
+        var total = 1
+        if daysCounter[everyNumDays!] != 0 {
+            total = calculateTotalFrequency(totalHari: numberOfDays, setiap: daysCounter[everyNumDays!])
+        }
+        
+        // COUNTER FREQUENCY ACTIVITY
+        var currentProgress = fullDetailUnmanaged?.currentFrequency
+        print("progress :\(currentProgress)   |    Total:  \(total)")
+        
+        fullDetailUnmanaged?.totalFrequency = total
+        
+        //UPDATE DATA
+        let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan mengubah aktivitas anda", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+            print("cancel")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+            try! realm.write({
+                self.fullDetailActivity?.title = Titlecell.titleTextField.text!
+                let note = (CatatanCell.catatanTextView.text == "Catatan") ? "" : CatatanCell.catatanTextView.text
+                self.fullDetailActivity?.note = note ?? ""
+                self.fullDetailActivity?.ulangi = self.tempUlangi
+                self.fullDetailActivity?.peringatan = self.fullDetailUnmanaged?.peringatan ?? 0
+                self.fullDetailActivity?.perasaanSesudah = self.fullDetailUnmanaged?.perasaanSesudah ?? 0
+                self.fullDetailActivity?.perasaanBefore = self.fullDetailUnmanaged?.perasaanBefore ?? 0
+                self.fullDetailActivity?.endDate = self.tempEndDate
+                self.fullDetailActivity?.totalFrequency = self.fullDetailUnmanaged?.totalFrequency ?? 0
+            })
+            self.navigationController?.popViewController(animated: true)
+
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
         
     }
     
+    func calculateTotalFrequency(totalHari : Int, setiap : Int) -> Int{
+        var result = 0
+        var totalHariSen = totalHari - 1
+        result = ((totalHariSen+setiap) - ((totalHariSen + setiap) % setiap )) / setiap
+        
+        return result
+    }
     
     //protocol
     func setPeringatan(id: Int, valueSent: String) {
@@ -329,6 +392,13 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             let cell5 = tableView.dequeueReusableCell(withIdentifier: "selesaiCell") as! SelesaiTableViewCell
             cell5.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
             cell5.selectionStyle = .none
+            cell5.selesaiButton.addTarget(self, action: #selector(selesaiClicked), for: .touchUpInside)
+            
+            if fullDetailActivity!.currentFrequency == fullDetailActivity!.totalFrequency{
+                cell5.selesaiButton.isEnabled = false
+                cell5.selesaiButton.backgroundColor = .gray
+                //print("masuk")
+            }
             return cell5
         }
         
@@ -336,11 +406,51 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             let cell5 = tableView.dequeueReusableCell(withIdentifier: "hapusCell") as! HapusTableViewCell
             cell5.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
             cell5.selectionStyle = .none
+            cell5.hapusButton.addTarget(self, action: #selector(hapusClicked), for: .touchUpInside)
             return cell5
         }
         
         
         return UITableViewCell()
+        
+    }
+    
+    @objc func selesaiClicked(sender: UIButton){
+        let realm = try! Realm()
+        
+        try! realm.write({
+            fullDetailActivity?.currentFrequency += 1
+        })
+        
+        
+        print(fullDetailActivity?.currentFrequency)
+        print("\(fullDetailActivity?.totalFrequency)")
+        
+        
+        
+    }
+    
+    @objc func hapusClicked(){
+        print("testing hapus")
+        //alert hapus
+        let alert = UIAlertController(title: "Anda Yakin?", message: "Tindakan ini akan menghapus aktivitas yang anda pilih", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Tidak", style: UIAlertAction.Style.default, handler: { ACTION in
+            print("cancel")
+        }))
+        alert.addAction(UIAlertAction(title: "Ya", style: UIAlertAction.Style.default, handler: { ACTION in
+            let realm = try! Realm()
+            print(self.fullDetailActivity?.date)
+            let items = realm.objects(Activity.self).filter("date = '\(self.fullDetailActivity?.date ?? "")'")
+            print(items)
+            try! realm.write {
+                realm.delete(items)
+            }
+            self.navigationController?.popViewController(animated: true)
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+        
+       
         
     }
     
