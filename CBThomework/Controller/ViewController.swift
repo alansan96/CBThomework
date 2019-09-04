@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import FSCalendar
+import UserNotifications
 
 class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
     
@@ -69,6 +70,24 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         calendar.appearance.selectionColor = #colorLiteral(red: 0, green: 0.7300438285, blue: 0.9550673366, alpha: 1)
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.weekdayTextColor = .black
+        
+        // Setting PERMISSION NOTIFICATIONNNNNNNNN !!!
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                print("Yey !")
+                
+            }
+            else {
+                print("D'oh !!")
+            }
+        }
+        
+        
+        scheduleLocalMorning(hour: 18, minute: 1)
+        scheduleLocalAfternoon(hour: 18, minute: 2)
+        scheduleLocalEvening(hour: 19, minute: 05)
         
     }
     
@@ -160,6 +179,91 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         }
     }
     
+    
+    //NOTIFICATION
+    func scheduleLocalMorning(hour: Int, minute: Int) {
+        let center = UNUserNotificationCenter.current()
+        //center.removeAllPendingNotificationRequests()
+        
+        // Konten dari notifikasi
+        
+        let contentMorning = UNMutableNotificationContent()
+        contentMorning.title = "Selamat Pagi"
+        contentMorning.body = "Jangan lupa melakukan aktivitas pagi ini"
+        contentMorning.categoryIdentifier = "alarm"
+        contentMorning.userInfo = ["customData": "fizzbuzz"]
+        contentMorning.sound = .default
+        
+        // Waktu notifikasi
+        
+        var dateComponentsMorning = DateComponents()
+        dateComponentsMorning.hour = hour
+        dateComponentsMorning.minute = minute
+        
+        
+        // Trigger notifikasi
+        let triggerMorning = UNCalendarNotificationTrigger(dateMatching: dateComponentsMorning, repeats: true)
+        
+        
+        // Melakukan request Notifikasi
+        let requestMorningNotification = UNNotificationRequest(identifier: "MorningNotification", content: contentMorning, trigger: triggerMorning)
+        center.add(requestMorningNotification)
+    }
+    
+    func scheduleLocalAfternoon(hour: Int, minute: Int) {
+        let center = UNUserNotificationCenter.current()
+        //center.removeAllPendingNotificationRequests()
+        
+        // Konten dari notifikasi
+        
+        let contentAfternoon = UNMutableNotificationContent()
+        contentAfternoon.title = "Selamat Siang"
+        contentAfternoon.body = "Jangan lupa melakukan aktivitas siang ini"
+        contentAfternoon.categoryIdentifier = "alarm"
+        contentAfternoon.userInfo = ["customData": "fizzbuzz"]
+        contentAfternoon.sound = .default
+        
+        // Waktu notifikasi
+        
+        var dateComponentsAfternoon = DateComponents()
+        dateComponentsAfternoon.hour = hour
+        dateComponentsAfternoon.minute = minute
+        
+        // Trigger notifikasi
+        let triggerAfternoon = UNCalendarNotificationTrigger(dateMatching: dateComponentsAfternoon, repeats: true)
+        
+        // Melakukan request Notifikasi
+        let requestAfternoonNotification = UNNotificationRequest(identifier: "AfternoonNotification", content: contentAfternoon, trigger: triggerAfternoon)
+        center.add(requestAfternoonNotification)
+    }
+    
+    func scheduleLocalEvening(hour: Int, minute: Int) {
+        let center = UNUserNotificationCenter.current()
+        //center.removeAllPendingNotificationRequests()
+        
+        // Konten dari notifikasi
+        let contentEvening = UNMutableNotificationContent()
+        contentEvening.title = "Selamat Malam"
+        contentEvening.body = "Jangan lupa melakukan aktivitas malam ini dan melakukan relfeksi :)"
+        contentEvening.categoryIdentifier = "alarm"
+        contentEvening.userInfo = ["customData": "fizzbuzz"]
+        contentEvening.sound = .default
+        
+        
+        // Waktu notifikasi
+        var dateComponentsEvening = DateComponents()
+        dateComponentsEvening.hour = hour
+        dateComponentsEvening.minute = minute
+        
+        
+        // Trigger notifikasi
+        let triggerEvening = UNCalendarNotificationTrigger(dateMatching: dateComponentsEvening, repeats: true)
+        
+        // Melakukan request Notifikasi
+        let requestEveningNotification = UNNotificationRequest(identifier: "EveningNotification", content: contentEvening, trigger: triggerEvening)
+        center.add(requestEveningNotification)
+    }
+
     
 }
 
@@ -370,6 +474,42 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+}
+
+
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    
+    // This function will be called when the app receive notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        // show the notification alert (banner), and with sound
+        
+        completionHandler([.alert, .sound])
+    }
+    
+    // This function will be called right after user tap on the notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        // tell the app that we have finished processing the user’s action / response
+        let application = UIApplication.shared
+        
+        if(application.applicationState == .active){
+            print("user tapped the notification bar when the app is in foreground")
+            
+        }
+        
+        if(application.applicationState == .inactive)
+        {
+            print("user tapped the notification bar when the app is in background")
+        }
+        
+        /* Change root view controller to a specific viewcontroller */
+        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // let vc = storyboard.instantiateViewController(withIdentifier: "ViewControllerStoryboardID") as? ViewController
+        // self.window?.rootViewController = vc
+        
+        completionHandler()
+    }
 }
 
 

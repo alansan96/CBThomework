@@ -364,7 +364,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="ZwJ-G4-c6m">
+                    <navigationItem key="navigationItem" title="AKU" id="ZwJ-G4-c6m">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="lve-1H-1Jo">
                             <connections>
                                 <segue destination="hfO-jB-HMl" kind="show" id="OEd-Iw-XSe"/>
@@ -446,7 +446,7 @@
             </objects>
             <point key="canvasLocation" x="-1355" y="1785"/>
         </scene>
-        <!--Aktivitas Baru-->
+        <!--Aktivitas-->
         <scene sceneID="eNj-7d-fcg">
             <objects>
                 <viewController id="JaM-ON-8cy" customClass="EditActivityViewController" customModule="CBThomework" customModuleProvider="target" sceneMemberID="viewController">
@@ -603,7 +603,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XLN-xv-Udc"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Aktivitas Baru" id="OEC-HM-LQ7">
+                    <navigationItem key="navigationItem" title="Aktivitas" id="OEC-HM-LQ7">
                         <barButtonItem key="rightBarButtonItem" title="Ubah" id="uB8-2e-Mkr">
                             <connections>
                                 <action selector="tambahAction:" destination="JaM-ON-8cy" id="Iii-go-C5K"/>
@@ -867,9 +867,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bQg-mH-9cJ"/>
+        <segue reference="74E-T0-LA4"/>
         <segue reference="P4N-bh-F4o"/>
         <segue reference="JmM-SS-dO4"/>
-        <segue reference="9U1-Nl-jSa"/>
+        <segue reference="QTe-YV-7vw"/>
     </inferredMetricsTieBreakers>
 </document>

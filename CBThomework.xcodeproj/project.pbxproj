@@ -11,6 +11,7 @@
 		6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */; };
 		691B60212317A649007E9C3F /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691B60202317A649007E9C3F /* PickerTableViewCell.swift */; };
 		6972BBBE23183E6000CBA969 /* PickerEditActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */; };
+		697E7818231FC333001C569D /* NotificationChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7817231FC333001C569D /* NotificationChecker.swift */; };
 		698E88C92310ED3600101B80 /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E88C82310ED3600101B80 /* EditActivityViewController.swift */; };
 		6994C8E8231116EE00A2A3D0 /* UlangiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */; };
 		6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */; };
@@ -48,6 +49,7 @@
 		6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		691B60202317A649007E9C3F /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
 		6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerEditActivityTableViewCell.swift; sourceTree = "<group>"; };
+		697E7817231FC333001C569D /* NotificationChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationChecker.swift; sourceTree = "<group>"; };
 		698E88C82310ED3600101B80 /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
 		6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlangiViewController.swift; sourceTree = "<group>"; };
 		6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeringatanViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				69A62D35230E300E00000543 /* ViewController.swift */,
 				6903F696230F7CEB00021C2D /* SettingViewController.swift */,
 				6994C8E9231118BE00A2A3D0 /* PeringatanViewController.swift */,
+				697E7817231FC333001C569D /* NotificationChecker.swift */,
 				6994C8E7231116EE00A2A3D0 /* UlangiViewController.swift */,
 				69BEDDE6231251B80025A30E /* NewJournalViewController.swift */,
 				698E88C82310ED3600101B80 /* EditActivityViewController.swift */,
@@ -336,6 +339,7 @@
 				69AD292D231CDFFF0042A793 /* HapusTableViewCell.swift in Sources */,
 				69A62D49230E381E00000543 /* FirstTableViewCell.swift in Sources */,
 				6994C8EA231118BE00A2A3D0 /* PeringatanViewController.swift in Sources */,
+				697E7818231FC333001C569D /* NotificationChecker.swift in Sources */,
 				69A62D36230E300E00000543 /* ViewController.swift in Sources */,
 				69BEDE0F231374AF0025A30E /* FirstActivityViewController.swift in Sources */,
 				69BEDE11231375700025A30E /* FirstActivityJudulTableViewCell.swift in Sources */,

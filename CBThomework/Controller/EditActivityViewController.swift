@@ -74,6 +74,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             getDateNowFullFormat()
             tableView.endUpdates()
         }
+        fullDate = tempEndDate
         
     }
     
@@ -120,8 +121,8 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         //FREQUENCY
         let startDateString = String((fullDetailUnmanaged?.date.prefix(10))!)
         var endDateString = fullDate
-        print("tempenddate: "+tempEndDate)
-        print("endadate: "+endDateString)
+//        print("tempenddate: "+tempEndDate)
+//        print("endadate: "+endDateString)
         print("fulldate: "+fullDate)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy" //Your date format
@@ -340,7 +341,7 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             }else if indexPath.row == 1 {
                 var date = Date()
                 var formatter = DateFormatter()
-                print(tempEndDate)
+                print("hasil temp end date \(tempEndDate)")
                 formatter.locale = Locale(identifier: "id")
                 formatter.dateFormat = "dd.MM.yyyy"
                 date = formatter.date(from: tempEndDate)!
@@ -357,7 +358,6 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             }else if indexPath.row == 2 {
                 var date = Date()
                 var formatter = DateFormatter()
-                print(tempEndDate)
 
                 formatter.dateFormat = "dd.MM.yyyy"
                 date = formatter.date(from: fullDate)!
@@ -570,7 +570,9 @@ extension EditActivityViewController: UIPickerViewDataSource, UIPickerViewDelega
         } else {
             fullDetailUnmanaged?.perasaanSesudah = row
         }
-        tableView.reloadData()
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 3)], with: .automatic)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 4)], with: .automatic)
+
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
