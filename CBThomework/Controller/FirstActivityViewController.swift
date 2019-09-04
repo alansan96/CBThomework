@@ -46,7 +46,7 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
             
             //END DATE
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
+            formatter.dateFormat = "dd.MM.yyyy"
             tempEndDate = formatter.string(from: Date.init())
             tableView.reloadData()
             
@@ -89,8 +89,10 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         
         if newActivity.ulangi == 0 {
             endDateString = startDateString
-            
+
+            newActivity.endDate = endDateString
         }
+        
         guard let startDate = dateFormatter.date(from: startDateString) else {
             fatalError()
         }
@@ -206,7 +208,7 @@ extension FirstActivityViewController : UITableViewDelegate, UITableViewDataSour
 
         //reload rows
         let dateFromatter2 = DateFormatter()
-        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        dateFromatter2.dateFormat = "dd.MM.yyyy"
         tempEndDate = dateFromatter2.string(from: sender.date)
         print(tempEndDate)
 

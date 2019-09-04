@@ -31,13 +31,12 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var emojiBefore : String = ""
     var boolCheck = false
     var labelSection2 : [String] = ["Ulangi"]
-    var temp = "waktunya"
+    var tempEndDate = "waktunya"
+    var fullDate = ""
     
     var tempUlangi = 0
     var tempPeringatan = 0
-    var tempEndDate = ""
     var daysCounter : [Int] = [0,1,2,3,7,14]
-
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -66,7 +65,10 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             tableView.insertRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             tableView.insertRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
             tableView.endUpdates()
-            temp = getDateNow()
+            
+            fullDetailUnmanaged = Activity(value: fullDetailActivity)
+            tempEndDate = String(fullDetailActivity!.endDate.prefix(10))
+            fullDate = tempEndDate
             
             tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             
@@ -85,7 +87,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     
     func getDateNowFullFormat() {
         let dateFromatter2 = DateFormatter()
-        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        dateFromatter2.dateFormat = "dd.MM.yyyy"
         tempEndDate = dateFromatter2.string(from: Date.init())
         print(tempEndDate)
     }
@@ -100,12 +102,6 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         fullDetailUnmanaged = Activity(value: fullDetailActivity)
         tempUlangi = fullDetailUnmanaged?.ulangi ?? 0
         tempPeringatan = fullDetailUnmanaged?.peringatan ?? 0
-        
-        let dateFromatter = DateFormatter()
-        dateFromatter.dateFormat = "dd.MM.YYYY hh:mm:ss"
-
-        
-        tempEndDate = dateFromatter.string(from: Date.init())
         
 
     }
@@ -173,7 +169,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
                 self.fullDetailActivity?.peringatan = self.fullDetailUnmanaged?.peringatan ?? 0
                 self.fullDetailActivity?.perasaanSesudah = self.fullDetailUnmanaged?.perasaanSesudah ?? 0
                 self.fullDetailActivity?.perasaanBefore = self.fullDetailUnmanaged?.perasaanBefore ?? 0
-                self.fullDetailActivity?.endDate = self.tempEndDate
+                self.fullDetailActivity?.endDate = self.fullDate
                 self.fullDetailActivity?.totalFrequency = self.fullDetailUnmanaged?.totalFrequency ?? 0
             })
             self.navigationController?.popViewController(animated: true)
@@ -299,23 +295,22 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func handler(sender: UIDatePicker){
+        print("bbbb"+tempEndDate)
 
-        
-        let dateFromatter = DateFormatter()
         let index = IndexPath(item: 1, section: 1)
-        tableView.reloadRows(at: [index], with: .automatic)
+
+        let dateFromatter = DateFormatter()
         dateFromatter.dateFormat = "E, dd MMM YYYY"
-        
         dateFromatter.locale = Locale(identifier: "id")
-        print(dateFromatter.string(from: sender.date))
-        temp = dateFromatter.string(from: sender.date)
-        tableView.reloadRows(at: [index], with: .automatic)
         
-        //reload rows
+        tempEndDate = dateFromatter.string(from: sender.date)
+
         let dateFromatter2 = DateFormatter()
-        dateFromatter2.dateFormat = "dd.MM.yyyy hh:mm:ss"
+        dateFromatter2.dateFormat = "dd.MM.yyyy"
         tempEndDate = dateFromatter2.string(from: sender.date)
-        print(tempEndDate)
+        fullDate = tempEndDate
+        tableView.reloadRows(at: [index], with: .automatic)
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -336,9 +331,28 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
                 cell2.detailTextLabel?.text = ulangiDataSource[(fullDetailUnmanaged?.ulangi)!]
 
             }else if indexPath.row == 1 {
-                cell2.detailTextLabel?.text = temp
+                var date = Date()
+                var formatter = DateFormatter()
+                print(tempEndDate)
+                formatter.dateFormat = "dd.MM.yyyy"
+                date = formatter.date(from: tempEndDate)!
+                fullDate = formatter.string(from: date)
+
+                formatter.dateFormat = "E, dd MMM yyyy"
+                tempEndDate = formatter.string(from: date)
+                
+                
                 cell2.textLabel?.text = "Tanggal Berakhir"
+                cell2.detailTextLabel?.text = tempEndDate
             }else if indexPath.row == 2 {
+                var date = Date()
+                var formatter = DateFormatter()
+                print(tempEndDate)
+
+                formatter.dateFormat = "dd.MM.yyyy"
+                date = formatter.date(from: fullDate)!
+                cellPicker2.pickerView.setDate(date, animated: false)
+
                 cellPicker2.pickerView.datePickerMode = .date
                 cellPicker2.pickerView.minimumDate = Date.init()
                 cellPicker2.pickerView.locale = Locale(identifier: "id")

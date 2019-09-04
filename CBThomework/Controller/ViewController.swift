@@ -8,12 +8,30 @@
 
 import UIKit
 import RealmSwift
+import FSCalendar
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, UIGestureRecognizerDelegate {
     
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
+    
+    fileprivate lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
+    
+    fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
+        [unowned self] in
+        let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
+        panGesture.delegate = self
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.maximumNumberOfTouches = 2
+        return panGesture
+        }()
     
     var activities : [Activity] = []
     var journals : [Journal] = []
@@ -37,6 +55,17 @@ class ViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         tableView.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
     
+        //CALENDAR
+        self.calendar.select(Date())
+        
+        self.view.addGestureRecognizer(self.scopeGesture)
+        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        self.calendar.scope = .week
+        calendar.locale = Locale(identifier: "id")
+        calendar.appearance.todayColor = .lightGray
+        calendar.appearance.selectionColor = #colorLiteral(red: 0, green: 0.7300438285, blue: 0.9550673366, alpha: 1)
+        calendar.appearance.headerTitleColor = .black
+        calendar.appearance.weekdayTextColor = .black
         
     }
     
@@ -57,6 +86,34 @@ class ViewController: UIViewController {
         
         return Array(tempJournal)
         
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
+        if shouldBegin {
+            let velocity = self.scopeGesture.velocity(in: self.view)
+            switch self.calendar.scope {
+            case .month:
+                return velocity.y < 0
+            case .week:
+                return velocity.y > 0
+            }
+        }
+        return shouldBegin
+    }
+    
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        self.calendarHeightConstraint.constant = bounds.height
+        self.view.layoutIfNeeded()
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("did select date \(self.dateFormatter.string(from: date))")
+        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
+        print("selected dates is \(selectedDates)")
+        if monthPosition == .next || monthPosition == .previous {
+            calendar.setCurrentPage(date, animated: true)
+        }
     }
     
     
