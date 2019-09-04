@@ -39,17 +39,20 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     
     var activityToSend : Activity?
     var journalToSend : Journal?
+    var selectedDate : String = ""
     
     override func viewWillAppear(_ animated: Bool) {
+        selectedDate = dateFormatter.string(from: Date.init())
         activities = createActivities()
         journals = createJournal()
         tableView.reloadData()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activities = createActivities()
+        //activities = createActivities()
         journals = createJournal()
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
@@ -72,7 +75,8 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     func createActivities() -> Array<Activity> {
         let realm = try! Realm()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        let tempActivities = realm.objects(Activity.self).sorted(byKeyPath: "date", ascending: false)
+        print("zczxzxczzcxzcxzcxzcxzcxz\(selectedDate)")
+        let tempActivities = realm.objects(Activity.self).sorted(byKeyPath: "date", ascending: false).filter("date LIKE '\(selectedDate)*'")
         
         
         
@@ -88,6 +92,38 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         
     }
     
+    
+    @objc func buttonAction(sender: UIButton!) {
+        self.performSegue(withIdentifier: "createFirstActivity", sender: self)
+        
+        
+    }
+    
+    @objc func buttonAction2(sender: UIButton!) {
+        journalToSend = nil
+        self.performSegue(withIdentifier: "createNewJournal", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createFirstActivity"{
+            if let vc: FirstActivityViewController = segue.destination as? FirstActivityViewController {
+                vc.selectedDate = selectedDate
+            }
+        }else if segue.identifier == "createNewActivity" {
+            if let vc: EditActivityViewController = segue.destination as? EditActivityViewController {
+                vc.fullDetailActivity = activityToSend
+            }
+        }else if segue.identifier == "createNewJournal" {
+            if let vc: NewJournalViewController = segue.destination as? NewJournalViewController {
+                vc.fullJournalDetail = journalToSend
+            }
+        }
+        
+        
+    }
+    
+    //CALENDAR
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
         if shouldBegin {
@@ -108,40 +144,20 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("did select date \(self.dateFormatter.string(from: date))")
+        let clickedDate = self.dateFormatter.string(from: date)
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
+        self.selectedDate = clickedDate
+        let realm = try! Realm()
+        let tempActivities = realm.objects(Activity.self).sorted(byKeyPath: "date", ascending: false).filter("date LIKE '\(clickedDate)*'")
+        print(tempActivities)
+        activities = Array(tempActivities)
+        tableView.reloadData()
+        
+        
         print("selected dates is \(selectedDates)")
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
-    }
-    
-    
-    @objc func buttonAction(sender: UIButton!) {
-        //self.performSegue(withIdentifier: "createNewActivity", sender: self)
-        self.performSegue(withIdentifier: "createFirstActivity", sender: self)
-        
-        
-    }
-    
-    @objc func buttonAction2(sender: UIButton!) {
-        journalToSend = nil
-        self.performSegue(withIdentifier: "createNewJournal", sender: self)
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createNewActivity" {
-            if let vc: EditActivityViewController = segue.destination as? EditActivityViewController {
-                vc.fullDetailActivity = activityToSend
-            }
-        }else if segue.identifier == "createNewJournal" {
-            if let vc: NewJournalViewController = segue.destination as? NewJournalViewController {
-                vc.fullJournalDetail = journalToSend
-            }
-        }
-        
-        
     }
     
     
@@ -175,7 +191,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell") as! FirstTableViewCell
             cell.label.text = name
             cell.label.font = UIFont.boldSystemFont(ofSize: 18)
-            cell.timestampLabel.text = activities[indexPath.row].date
+            cell.timestampLabel.text = String(activities[indexPath.row].date.prefix(10))
             cell.selectionStyle = .none
             cell.aktivitasView.dropShadow()
             cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
@@ -189,7 +205,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }else{
             let title = journals[indexPath.row].title
             let desc = journals[indexPath.row].descriptionText
-            let timestamp = journals[indexPath.row].date
+            let timestamp = String(journals[indexPath.row].date.prefix(10))
             let cell = tableView.dequeueReusableCell(withIdentifier: "JournalCell") as! JournalTableViewCell
             cell.selectionStyle = .none
             cell.journalLabel.font = UIFont.boldSystemFont(ofSize: 18)

@@ -21,6 +21,8 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
     
     var boolCheck = false
     var daysCounter : [Int] = [0,1,2,3,7,14]
+    var selectedDate : String = ""
+    var dateToDatabase : String = ""
 
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +61,13 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         // Do any additional setup after loading the view.
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         tableView.isScrollEnabled = false
-        
+        var currentDateString = ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm:ss"
+        currentDateString = formatter.string(from: Date.init())
+        dateToDatabase = "\(selectedDate) \(currentDateString)"
+        print(dateToDatabase)
+
     }
     
     @IBAction func tambahAktivitasAction(_ sender: Any) {
@@ -72,11 +80,11 @@ class FirstActivityViewController: UIViewController, MyProtocol, peringatanProto
         newActivity.peringatan = details2[2]
         newActivity.endDate = tempEndDate
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
-        let result = formatter.string(from: date)
-        newActivity.date = result
+//        let date = Date()
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
+//        let result = formatter.string(from: date)
+        newActivity.date = dateToDatabase
         
         //FREQUENCY
         let startDateString = String(newActivity.date.prefix(10))

@@ -39,24 +39,17 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     var daysCounter : [Int] = [0,1,2,3,7,14]
     
     override func viewWillAppear(_ animated: Bool) {
+        tempEndDate = String(fullDetailActivity!.endDate.prefix(10))
         
-        
-        if boolCheck == false && labelSection2.count > 1 {
-            tableView.beginUpdates()
-            labelSection2.remove(at: 1)
-            tableView.deleteRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
-            
-            labelSection2.remove(at: 1)
-            tableView.deleteRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
-            getDateNowFullFormat()
-            tableView.endUpdates()
-        }
-        
-        
-        if fullDetailUnmanaged?.ulangi != 0 {
+         if fullDetailUnmanaged?.ulangi != 0 {
             boolCheck = true
         }
+         else{
+            boolCheck = false
+        }
+
         
+        print(fullDetailUnmanaged?.ulangi)
         if boolCheck == true && labelSection2.count < 2 {
             labelSection2.append("Ulangi Sampai")
             labelSection2.append("Ulangi Sampai lagi")
@@ -66,12 +59,20 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             tableView.insertRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
             tableView.endUpdates()
             
-            fullDetailUnmanaged = Activity(value: fullDetailActivity)
             tempEndDate = String(fullDetailActivity!.endDate.prefix(10))
             fullDate = tempEndDate
             
             tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
+        }else if boolCheck == false && labelSection2.count > 1 {
+            print("masuk bang")
+            tableView.beginUpdates()
+            labelSection2.remove(at: 1)
+            tableView.deleteRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             
+            labelSection2.remove(at: 1)
+            tableView.deleteRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
+            getDateNowFullFormat()
+            tableView.endUpdates()
         }
         
     }
@@ -100,6 +101,8 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         tableView.isScrollEnabled = true
         tableView.separatorStyle = .none
         fullDetailUnmanaged = Activity(value: fullDetailActivity)
+
+        print(fullDetailUnmanaged)
         tempUlangi = fullDetailUnmanaged?.ulangi ?? 0
         tempPeringatan = fullDetailUnmanaged?.peringatan ?? 0
         
@@ -116,8 +119,10 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         let realm = try! Realm()
         //FREQUENCY
         let startDateString = String((fullDetailUnmanaged?.date.prefix(10))!)
-        var endDateString = String((fullDetailUnmanaged?.endDate.prefix(10))!)
-        
+        var endDateString = fullDate
+        print("tempenddate: "+tempEndDate)
+        print("endadate: "+endDateString)
+        print("fulldate: "+fullDate)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy" //Your date format
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00") //Current time zone
@@ -131,7 +136,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
             fatalError()
         }
         
-        guard let endDate = dateFormatter.date(from: endDateString) else {
+        guard let endDate = dateFormatter.date(from: fullDate) else {
             fatalError()
         }
         print("progress :\(startDate)   |    Total:  \(endDate)")
@@ -185,7 +190,8 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
         var result = 0
         var totalHariSen = totalHari - 1
         result = ((totalHariSen+setiap) - ((totalHariSen + setiap) % setiap )) / setiap
-        
+        print(totalHariSen)
+        print("Result" + "\(result)")
         return result
     }
     
@@ -200,6 +206,7 @@ class EditActivityViewController: UIViewController , UITextViewDelegate, MyProto
     func setResultOfBusinessLogic(id: Int, valueSent: String, isNever: Bool) {
         boolCheck = isNever
         fullDetailUnmanaged?.ulangi = id
+        print(id)
         tempUlangi = id
         tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
     }
@@ -334,11 +341,14 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
                 var date = Date()
                 var formatter = DateFormatter()
                 print(tempEndDate)
+                formatter.locale = Locale(identifier: "id")
                 formatter.dateFormat = "dd.MM.yyyy"
                 date = formatter.date(from: tempEndDate)!
+            
                 fullDate = formatter.string(from: date)
 
                 formatter.dateFormat = "E, dd MMM yyyy"
+                
                 tempEndDate = formatter.string(from: date)
                 
                 
@@ -406,13 +416,13 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
             let cell5 = tableView.dequeueReusableCell(withIdentifier: "selesaiCell") as! SelesaiTableViewCell
             cell5.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
             cell5.selectionStyle = .none
-            cell5.selesaiButton.addTarget(self, action: #selector(selesaiClicked), for: .touchUpInside)
-            
             if fullDetailActivity!.currentFrequency == fullDetailActivity!.totalFrequency{
                 cell5.selesaiButton.isEnabled = false
                 cell5.selesaiButton.backgroundColor = .gray
-                //print("masuk")
             }
+            cell5.selesaiButton.addTarget(self, action: #selector(selesaiClicked), for: .touchUpInside)
+            
+
             return cell5
         }
         
@@ -432,10 +442,17 @@ extension EditActivityViewController : UITableViewDelegate, UITableViewDataSourc
     @objc func selesaiClicked(sender: UIButton){
         let realm = try! Realm()
         
-        try! realm.write({
-            fullDetailActivity?.currentFrequency += 1
-        })
         
+            //print("masuk")
+            
+       
+            try! realm.write({
+                    fullDetailActivity?.currentFrequency += 1
+            })
+
+        
+    
+        navigationController?.popViewController(animated: true)
         
         print(fullDetailActivity?.currentFrequency)
         print("\(fullDetailActivity?.totalFrequency)")
