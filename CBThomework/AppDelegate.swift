@@ -54,6 +54,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
 
         
+        //STARTER
+       
+        
+        
+        
+        let defaults = UserDefaults.standard
+        let faceID = defaults.bool(forKey: "FaceID")
+        
+        if faceID == true {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "FaceIDViewController")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "navController")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 

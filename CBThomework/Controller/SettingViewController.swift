@@ -37,13 +37,24 @@ extension SettingViewController : UITableViewDataSource, UITableViewDelegate {
         cell.settingLabel.text = name
         cell.selectionStyle = .none
         
-        
-        if indexPath.row > 1 {
+        if indexPath.row == 0 {
+            let defaults = UserDefaults.standard
+            let faceID = defaults.bool(forKey: "FaceID")
+            if faceID == true {
+                cell.settingSwitch.isOn = true
+            }else {
+                cell.settingSwitch.isOn = false
+
+            }
+
+            cell.settingSwitch.addTarget(self, action: #selector(handler), for: .valueChanged)
+            
+            
+        }else if indexPath.row > 1 {
             // right arrow
             cell.accessoryType = .disclosureIndicator
             cell.settingSwitch.isHidden = true
         }
-        
         return cell
     }
 
@@ -66,7 +77,23 @@ extension SettingViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let currentCell = tableView.cellForRow(at: indexPath) as! SettingTableViewCell
-        print(currentCell.settingLabel.text)
+
+    
+    }
+    
+    @objc func handler(sender : UISwitch){
+        let defaults = UserDefaults.standard
+
+        if sender.isOn == true {
+            print("now on")
+            defaults.set(true, forKey: "FaceID")
+            }else {
+            let defaults = UserDefaults.standard
+            defaults.set(false, forKey: "FaceID")
+        }
+        let faceId = defaults.bool(forKey: "FaceID")
+        print(faceId)
+
     }
     
     

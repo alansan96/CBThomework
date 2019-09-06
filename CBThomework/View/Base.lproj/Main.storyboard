@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bsQ-6W-X0Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4L-of-1eM">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -66,10 +66,28 @@
             </objects>
             <point key="canvasLocation" x="1351" y="-244"/>
         </scene>
+        <!--FaceID View Controller-->
+        <scene sceneID="XfC-H5-rjP">
+            <objects>
+                <viewController storyboardIdentifier="FaceIDViewController" id="l4L-of-1eM" customClass="FaceIDViewController" customModule="CBThomework" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zvu-lM-89J">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="esp-3l-o2a"/>
+                    </view>
+                    <connections>
+                        <segue destination="bsQ-6W-X0Q" kind="show" identifier="toHome" id="QrW-e1-Rcq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QPY-H4-Qqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1638" y="-235"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="y4X-Km-wCm">
             <objects>
-                <navigationController id="bsQ-6W-X0Q" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navController" id="bsQ-6W-X0Q" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Tg-dt-ucC">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -384,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142" y="-244"/>
+            <point key="canvasLocation" x="140.57971014492756" y="-244.41964285714283"/>
         </scene>
         <!--Ulangi-->
         <scene sceneID="Jjy-ai-NtQ">

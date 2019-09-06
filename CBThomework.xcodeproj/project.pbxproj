@@ -10,6 +10,7 @@
 		6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F696230F7CEB00021C2D /* SettingViewController.swift */; };
 		6903F699230F7DBE00021C2D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */; };
 		691B60212317A649007E9C3F /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691B60202317A649007E9C3F /* PickerTableViewCell.swift */; };
+		696909C62320AE6A00769B57 /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696909C52320AE6A00769B57 /* FaceIDViewController.swift */; };
 		6972BBBE23183E6000CBA969 /* PickerEditActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */; };
 		697E7818231FC333001C569D /* NotificationChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E7817231FC333001C569D /* NotificationChecker.swift */; };
 		698E88C92310ED3600101B80 /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E88C82310ED3600101B80 /* EditActivityViewController.swift */; };
@@ -48,6 +49,7 @@
 		6903F696230F7CEB00021C2D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		6903F698230F7DBE00021C2D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		691B60202317A649007E9C3F /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
+		696909C52320AE6A00769B57 /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
 		6972BBBD23183E6000CBA969 /* PickerEditActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerEditActivityTableViewCell.swift; sourceTree = "<group>"; };
 		697E7817231FC333001C569D /* NotificationChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationChecker.swift; sourceTree = "<group>"; };
 		698E88C82310ED3600101B80 /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				69BEDE0E231374AF0025A30E /* FirstActivityViewController.swift */,
 				69BEDE0C23128FA60025A30E /* SeeAllActivityViewController.swift */,
 				69BEDE162314092C0025A30E /* SeeAllJournalViewController.swift */,
+				696909C52320AE6A00769B57 /* FaceIDViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				69A62D4B230E39D800000543 /* Activity.swift in Sources */,
 				69B47FDA231626A300F1D42F /* selesaiButton.swift in Sources */,
 				69BEDDE7231251B80025A30E /* NewJournalViewController.swift in Sources */,
+				696909C62320AE6A00769B57 /* FaceIDViewController.swift in Sources */,
 				69A62D34230E300E00000543 /* AppDelegate.swift in Sources */,
 				6903F697230F7CEB00021C2D /* SettingViewController.swift in Sources */,
 				69AD292B231CCD450042A793 /* SelesaiTableViewCell.swift in Sources */,
@@ -509,7 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DT89MQLH9B;
+				DEVELOPMENT_TEAM = 3GHLH52F3W;
 				INFOPLIST_FILE = CBThomework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -528,7 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DT89MQLH9B;
+				DEVELOPMENT_TEAM = 3GHLH52F3W;
 				INFOPLIST_FILE = CBThomework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

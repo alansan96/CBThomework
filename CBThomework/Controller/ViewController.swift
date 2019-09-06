@@ -387,7 +387,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
         let button:UIButton = UIButton(frame: CGRect(x: 280, y: -5, width: 120, height: 40))
         button.setTitle("Lihat Semua", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.2117647059, green: 0.7176470588, blue: 0.9333333333, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2039215686, green: 0.4705882353, blue: 0.9647058824, alpha: 1), for: .normal)
 
         if section == 0 {
             button.addTarget(self, action:#selector(self.buttonClickedActivity), for: .touchUpInside)
