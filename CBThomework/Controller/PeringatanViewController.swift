@@ -19,6 +19,7 @@ class PeringatanViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
         self.tableView.bounces = false
+        //print
     }
     
 
